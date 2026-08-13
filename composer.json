@@ -1,0 +1,42 @@
+{
+    "name": "deatil/php-jwt",
+    "description": "A library to work with JSON Web Token and JSON Web Signature.",
+    "keywords": [
+        "php",
+        "php-jwt",
+        "JWT",
+        "JWS"
+    ],
+    "homepage": "https://github.com/deatil/php-jwt",
+    "type": "library",
+    "license": "BSD-3-Clause",
+    "authors": [
+        {
+            "name": "deatil",
+            "email": "deatil@github.com",
+            "homepage": "https://github.com/deatil",
+            "role": "Developer"
+        }
+    ],
+    "require": {
+        "php": "~8.1|~8.2|~8.3",
+        "ext-hash": "*",
+        "ext-json": "*",
+        "ext-openssl": "*",
+        "ext-mbstring": "*",
+        "ext-sodium": "*"
+    },
+    "require-dev": {
+        "phpunit/phpunit": "11.5.56"
+    },
+    "autoload": {
+        "psr-4": {
+            "Deatil\\JWT\\": "src"
+        }
+    },
+    "autoload-dev": {
+        "psr-4": {
+            "Deatil\\JWT\\Tests\\": "tests"
+        }
+    }
+}
