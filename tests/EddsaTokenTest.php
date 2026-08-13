@@ -63,7 +63,7 @@ class EddsaTokenTest extends TestCase
         );
     }
     
-    public function testParser(): void
+    public function testParserAndVerifyToken(): void
     {
         $signer = new Eddsa();
         $key    = InMemory::base64Encoded('R0TLf2hkQaCg/z7eR/4mIBgpWu0NOAnYzlKS0q42YbY=');
