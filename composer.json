@@ -9,7 +9,7 @@
     ],
     "homepage": "https://github.com/deatil/php-jwt",
     "type": "library",
-    "license": "BSD-3-Clause",
+    "license": "Apache2",
     "authors": [
         {
             "name": "deatil",
