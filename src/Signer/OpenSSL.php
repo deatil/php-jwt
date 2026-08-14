@@ -12,7 +12,6 @@ use function assert;
 use function is_array;
 use function is_resource;
 use function openssl_error_string;
-use function openssl_free_key;
 use function openssl_pkey_get_details;
 use function openssl_pkey_get_private;
 use function openssl_pkey_get_public;
@@ -25,17 +24,13 @@ abstract class OpenSSL extends BaseSigner
     {
         $privateKey = $this->getPrivateKey($key->getContent(), $key->getPassphrase());
 
-        try {
-            $signature = '';
+        $signature = '';
 
-            if (! openssl_sign($payload, $signature, $privateKey, $this->getAlgorithm())) {
-                throw InvalidKeyProvided::creatingSignatureError(openssl_error_string());
-            }
-
-            return $signature;
-        } finally {
-            openssl_free_key($privateKey);
+        if (! openssl_sign($payload, $signature, $privateKey, $this->getAlgorithm())) {
+            throw InvalidKeyProvided::creatingSignatureError(openssl_error_string());
         }
+
+        return $signature;
     }
 
     /**
@@ -62,7 +57,6 @@ abstract class OpenSSL extends BaseSigner
     {
         $publicKey = $this->getPublicKey($key->getContent());
         $result    = openssl_verify($payload, $expected, $publicKey, $this->getAlgorithm());
-        openssl_free_key($publicKey);
 
         return $result === 1;
     }

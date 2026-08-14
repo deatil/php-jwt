@@ -7,16 +7,16 @@ namespace Deatil\JWT\Signer\Hmac;
 use Deatil\JWT\Signer\Hmac;
 
 /**
- * Signer for HMAC SHA-512
+ * Signer for HMAC SHA-384
  */
-final class Sha512 extends Hmac
+final class HS384 extends Hmac
 {
     /**
      * {@inheritdoc}
      */
     public function getAlgorithmId(): string
     {
-        return 'HS512';
+        return 'HS384';
     }
 
     /**
@@ -24,6 +24,6 @@ final class Sha512 extends Hmac
      */
     public function getAlgorithm(): string
     {
-        return 'sha512';
+        return 'sha384';
     }
 }

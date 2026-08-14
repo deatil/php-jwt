@@ -7,16 +7,16 @@ namespace Deatil\JWT\Signer\Ecdsa;
 use Deatil\JWT\Signer\Ecdsa;
 
 /**
- * Signer for ECDSA P256K SHA-256
+ * Signer for ECDSA SHA-384
  */
-final class Sha256k extends Ecdsa
+final class ES384 extends Ecdsa
 {
     /**
      * {@inheritdoc}
      */
     public function getAlgorithmId(): string
     {
-        return 'ES256K';
+        return 'ES384';
     }
 
     /**
@@ -24,7 +24,7 @@ final class Sha256k extends Ecdsa
      */
     public function getAlgorithm(): mixed
     {
-        return 'sha256';
+        return 'sha384';
     }
 
     /**
@@ -32,6 +32,6 @@ final class Sha256k extends Ecdsa
      */
     public function getKeyLength(): int
     {
-        return 64;
+        return 96;
     }
 }

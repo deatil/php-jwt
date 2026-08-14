@@ -9,7 +9,7 @@ use Deatil\JWT\Signer\Ecdsa;
 /**
  * Signer for ECDSA SHA-256
  */
-final class Sha256 extends Ecdsa
+final class ES256 extends Ecdsa
 {
     /**
      * {@inheritdoc}

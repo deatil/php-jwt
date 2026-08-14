@@ -60,7 +60,7 @@ Use the parser to create a new token from a JWT string (using the previous token
 ```php
 use Deatil\JWT\Parser;
 
-$token = (new Parser())->parse((string) $token); // Parses from a string
+$token = (new Parser())->parse((string) $tokenString); // Parses from a string
 $token->headers()->all(); // Retrieves the token headers
 $token->claims()->all(); // Retrieves the token claims
 

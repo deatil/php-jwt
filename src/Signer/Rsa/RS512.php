@@ -7,16 +7,16 @@ namespace Deatil\JWT\Signer\Rsa;
 use Deatil\JWT\Signer\Rsa;
 
 /**
- * Signer for RSA SHA-384
+ * Signer for RSA SHA-512
  */
-final class Sha384 extends Rsa
+final class RS512 extends Rsa
 {
     /**
      * {@inheritdoc}
      */
     public function getAlgorithmId(): string
     {
-        return 'RS384';
+        return 'RS512';
     }
 
     /**
@@ -24,6 +24,6 @@ final class Sha384 extends Rsa
      */
     public function getAlgorithm(): mixed
     {
-        return OPENSSL_ALGO_SHA384;
+        return OPENSSL_ALGO_SHA512;
     }
 }

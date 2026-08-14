@@ -187,7 +187,7 @@ final class Builder
     }
 
     /** @param non-empty-string $name */
-    private function setClaim(string $name, mixed $value): self
+    public function setClaim(string $name, mixed $value): self
     {
         $this->claims[$name] = $value;
 

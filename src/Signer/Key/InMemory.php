@@ -43,6 +43,13 @@ final class InMemory implements Key
         return new self($decoded, $passphrase);
     }
 
+    public static function hexEncoded(string $contents, string $passphrase = ''): self
+    {
+        $decoded = hex2bin($contents);
+
+        return new self($decoded, $passphrase);
+    }
+
     /** @throws FileCouldNotBeRead */
     public static function file(string $path, string $passphrase = ''): self
     {
