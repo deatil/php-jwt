@@ -28,7 +28,7 @@ class EddsaTokenTest extends TestCase
             ->issuedAt($now)
             ->permittedFor('https://client.abc.com')
             ->issuedBy('https://api.abc.com')
-            ->withClaim('user', ['name' => 'testing', 'email' => 'testing@abc.com']);
+            ->setClaim('user', ['name' => 'testing', 'email' => 'testing@abc.com']);
 
         $this->expectException(InvalidKeyProvided::class);
         $this->expectExceptionMessage('SODIUM_CRYPTO_SIGN_SECRETKEYBYTES');
@@ -49,7 +49,7 @@ class EddsaTokenTest extends TestCase
                          ->permittedFor('https://client2.abc.com')
                          ->issuedBy('https://api.abc.com')
                          ->issuedAt($now)
-                         ->withClaim('user', $user)
+                         ->setClaim('user', $user)
                          ->withHeader('jki', '1234')
                          ->getToken($signer, $key);
 

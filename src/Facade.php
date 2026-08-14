@@ -28,7 +28,7 @@ final class Facade
         );
         
         foreach ($claims as $key => $claim) {
-            $builder->setClaim($key, $claim);
+            $builder->withClaim($key, $claim);
         }
 
         return $builder->getToken($signer, $signingKey);

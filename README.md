@@ -39,9 +39,7 @@ composer require deatil/php-jwt
 
 ~~~php
 use DateTimeImmutable;
-use Deatil\JWT\Builder;
-use Deatil\JWT\Parser;
-use Deatil\JWT\Validator;
+use Deatil\JWT\Facade;
 use Deatil\JWT\Signer\Hmac\HS256;
 use Deatil\JWT\Signer\Key\InMemory;
 
@@ -121,9 +119,9 @@ var_dump($validation->validate($token, $dataWithLeeway)); // false, because toke
 ~~~
 
 
-### Signing Methods
+### Signers
 
-The JWT library have signing methods:
+The JWT library have signers:
 
  - `ES256`: Deatil\JWT\Signer\Ecdsa\ES256
  - `ES384`: Deatil\JWT\Signer\Ecdsa\ES384
@@ -161,8 +159,8 @@ $pubkey = InMemory::plainText("-----BEGIN PUBLIC KEY-----
 -----END PUBLIC KEY-----");
 
 // from key pem file, have pass and $pass need set
-$prikey = InMemory::plainText(__DIR__ . '/_keys/ecdsa/private.key', $pass);
-$pubkey = InMemory::plainText(__DIR__ . '/_keys/ecdsa/pubkey.key');
+$prikey = InMemory::file(__DIR__ . '/_keys/ecdsa/private.key', $pass);
+$pubkey = InMemory::file(__DIR__ . '/_keys/ecdsa/pubkey.key');
 ~~~
 
 EdDSA PublicKey:
@@ -178,7 +176,7 @@ RSA PublicKey:
 ~~~php
 use Deatil\JWT\Signer\Key\InMemory;
 
-// from key pem
+// from key pem string with pkcs1 key
 $prikey = InMemory::plainText("-----BEGIN RSA PRIVATE KEY-----
 ...
 -----END RSA PRIVATE KEY-----");
@@ -187,8 +185,8 @@ $pubkey = InMemory::plainText("-----BEGIN RSA PUBLIC KEY-----
 -----END RSA PUBLIC KEY-----");
 
 // from key pem file, have pass and $pass need set
-$prikey = InMemory::plainText(__DIR__ . '/_keys/rsa/private.key', $pass);
-$pubkey = InMemory::plainText(__DIR__ . '/_keys/rsa/pubkey.key');
+$prikey = InMemory::file(__DIR__ . '/_keys/rsa/private.key', $pass);
+$pubkey = InMemory::file(__DIR__ . '/_keys/rsa/pubkey.key');
 ~~~
 
 

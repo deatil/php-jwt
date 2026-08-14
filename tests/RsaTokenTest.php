@@ -29,7 +29,7 @@ class RsaTokenTest extends TestCase
             ->issuedAt($now)
             ->permittedFor('https://client.abc.com')
             ->issuedBy('https://api.abc.com')
-            ->withClaim('user', ['name' => 'testing', 'email' => 'testing@abc.com']);
+            ->setClaim('user', ['name' => 'testing', 'email' => 'testing@abc.com']);
 
         $this->expectException(InvalidKeyProvided::class);
         $this->expectExceptionMessage('It was not possible to parse your key, reason:');
@@ -76,7 +76,7 @@ CKuHRG+AP579dncdUnOMvfXOtkdM4vk0+hWASBQzM9xzVcztCa+koAugjVaLS9A+
                          ->permittedFor('https://client2.abc.com')
                          ->issuedBy('https://api.abc.com')
                          ->issuedAt($now)
-                         ->withClaim('user', $user)
+                         ->setClaim('user', $user)
                          ->withHeader('jki', '1234')
                          ->getToken($signer, InMemory::plainText($key));
 

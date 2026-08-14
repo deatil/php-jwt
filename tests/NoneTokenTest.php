@@ -29,7 +29,7 @@ class NoneTokenTest extends TestCase
                          ->permittedFor('https://client2.abc.com')
                          ->issuedBy('https://api.abc.com')
                          ->issuedAt($now)
-                         ->withClaim('user', $user)
+                         ->setClaim('user', $user)
                          ->withHeader('jki', '1234')
                          ->getToken($signer, $key);
 

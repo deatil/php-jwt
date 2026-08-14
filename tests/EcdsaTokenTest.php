@@ -30,7 +30,7 @@ class EcdsaTokenTest extends TestCase
             ->identifiedBy('1')
             ->permittedFor('https://client.abc.com')
             ->issuedBy('https://api.abc.com')
-            ->withClaim('user', ['name' => 'testing', 'email' => 'testing@abc.com']);
+            ->setClaim('user', ['name' => 'testing', 'email' => 'testing@abc.com']);
 
         $this->expectException(InvalidKeyProvided::class);
         $this->expectExceptionMessage('It was not possible to parse your key, reason:');
@@ -74,7 +74,7 @@ TUKzrgcd7NvlA41Y4xKcOqEA
             ->identifiedBy('1')
             ->permittedFor('https://client.abc.com')
             ->issuedBy('https://api.abc.com')
-            ->withClaim('user', ['name' => 'testing', 'email' => 'testing@abc.com']);
+            ->setClaim('user', ['name' => 'testing', 'email' => 'testing@abc.com']);
 
         $this->expectException(InvalidKeyProvided::class);
         $this->expectExceptionMessage("This key is not compatible with this signer");
@@ -99,7 +99,7 @@ U+GeRqC7zN0aTnTQajarUylKJ3UWr/r1kg==
                          ->permittedFor('https://client2.abc.com')
                          ->issuedBy('https://api.abc.com')
                          ->issuedAt($now)
-                         ->withClaim('user', $user)
+                         ->setClaim('user', $user)
                          ->withHeader('jki', '1234')
                          ->getToken($signer, InMemory::plainText($key));
 

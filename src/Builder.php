@@ -79,7 +79,7 @@ final class Builder
         $configured = $this->claims[RegisteredClaims::AUDIENCE] ?? [];
         $toAppend   = array_diff($audiences, $configured);
 
-        return $this->setClaim(RegisteredClaims::AUDIENCE, array_merge($configured, $toAppend));
+        return $this->withClaim(RegisteredClaims::AUDIENCE, array_merge($configured, $toAppend));
     }
 
     /**
@@ -91,7 +91,7 @@ final class Builder
      */
     public function expiresAt(DateTimeImmutable $expiration): self
     {
-        return $this->setClaim(RegisteredClaims::EXPIRATION_TIME, $expiration);
+        return $this->withClaim(RegisteredClaims::EXPIRATION_TIME, $expiration);
     }
 
     /**
@@ -103,7 +103,7 @@ final class Builder
      */
     public function identifiedBy(string $id): self
     {
-        return $this->setClaim(RegisteredClaims::ID, $id);
+        return $this->withClaim(RegisteredClaims::ID, $id);
     }
 
     /**
@@ -115,7 +115,7 @@ final class Builder
      */
     public function issuedAt(DateTimeImmutable $issuedAt): self
     {
-        return $this->setClaim(RegisteredClaims::ISSUED_AT, $issuedAt);
+        return $this->withClaim(RegisteredClaims::ISSUED_AT, $issuedAt);
     }
 
     /**
@@ -127,7 +127,7 @@ final class Builder
      */
     public function issuedBy(string $issuer): self
     {
-        return $this->setClaim(RegisteredClaims::ISSUER, $issuer);
+        return $this->withClaim(RegisteredClaims::ISSUER, $issuer);
     }
 
     /**
@@ -139,7 +139,7 @@ final class Builder
      */
     public function canOnlyBeUsedAfter(DateTimeImmutable $notBefore): self
     {
-        return $this->setClaim(RegisteredClaims::NOT_BEFORE, $notBefore);
+        return $this->withClaim(RegisteredClaims::NOT_BEFORE, $notBefore);
     }
 
     /**
@@ -151,7 +151,7 @@ final class Builder
      */
     public function relatedTo(string $subject): self
     {
-        return $this->setClaim(RegisteredClaims::SUBJECT, $subject);
+        return $this->withClaim(RegisteredClaims::SUBJECT, $subject);
     }
 
     /**
@@ -177,17 +177,17 @@ final class Builder
      *
      * @return Builder
      */
-    public function withClaim(string $name, mixed $value): self
+    public function setClaim(string $name, mixed $value): self
     {
         if (in_array($name, RegisteredClaims::ALL, true)) {
             throw RegisteredClaimGiven::forClaim($name);
         }
 
-        return $this->setClaim($name, $value);
+        return $this->withClaim($name, $value);
     }
 
     /** @param non-empty-string $name */
-    public function setClaim(string $name, mixed $value): self
+    public function withClaim(string $name, mixed $value): self
     {
         $this->claims[$name] = $value;
 

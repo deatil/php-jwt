@@ -41,7 +41,7 @@ $token = (new Builder())
     ->issuedAt($now) // Configures the time that the token was issue (iat claim)
     ->canOnlyBeUsedAfter($now->modify('+1 minute')) // Configures the time that the token can be used (nbf claim)
     ->expiresAt($now->modify('+1 hour')) // Configures the expiration time of the token (exp claim)
-    ->withClaim('uid', 1) // Configures a new claim, called "uid"
+    ->setClaim('uid', 1) // Configures a new claim, called "uid"
     ->getToken($signer, $key); // Retrieves the generated token
 
 $token->headers()->all(); // Retrieves the token headers
@@ -167,7 +167,7 @@ $token = (new Builder())
     ->issuedAt($now) // Configures the time that the token was issue (iat claim)
     ->canOnlyBeUsedAfter($now->modify('+1 minute')) // Configures the time that the token can be used (nbf claim)
     ->expiresAt($now->modify('+1 hour')) // Configures the expiration time of the token (exp claim)
-    ->withClaim('uid', 1) // Configures a new claim, called "uid"
+    ->setClaim('uid', 1) // Configures a new claim, called "uid"
     ->getToken($signer, $key); // Retrieves the generated token
 
 $key1 = InMemory::plainText('testing 1');
@@ -201,7 +201,7 @@ $token = (new Builder())
     ->issuedAt($now) // Configures the time that the token was issue (iat claim)
     ->canOnlyBeUsedAfter($now->modify('+1 minute')) // Configures the time that the token can be used (nbf claim)
     ->expiresAt($now->modify('+1 hour')) // Configures the expiration time of the token (exp claim)
-    ->withClaim('uid', 1) // Configures a new claim, called "uid"
+    ->setClaim('uid', 1) // Configures a new claim, called "uid"
     ->getToken($signer, $privateKey); // Retrieves the generated token
 
 $publicKey = LocalFileReference::file('file://{path to your public key}');

@@ -26,7 +26,7 @@ class Blake2bTokenTest extends TestCase
             ->identifiedBy('1')
             ->permittedFor('https://client.abc.com')
             ->issuedBy('https://api.abc.com')
-            ->withClaim('user', ['name' => 'testing', 'email' => 'testing@abc.com']);
+            ->setClaim('user', ['name' => 'testing', 'email' => 'testing@abc.com']);
 
         $this->expectException(InvalidKeyProvided::class);
         $this->expectExceptionMessage('Key provided is shorter than 256 bits, only 56 bits provided');
@@ -70,7 +70,7 @@ TUKzrgcd7NvlA41Y4xKcOqEA
             ->identifiedBy('1')
             ->permittedFor('https://client.abc.com')
             ->issuedBy('https://api.abc.com')
-            ->withClaim('user', ['name' => 'testing', 'email' => 'testing@abc.com']);
+            ->setClaim('user', ['name' => 'testing', 'email' => 'testing@abc.com']);
 
         $this->expectException(SodiumException::class);
         $this->expectExceptionMessage("unsupported key length");
@@ -91,7 +91,7 @@ TUKzrgcd7NvlA41Y4xKcOqEA
                          ->permittedFor('https://client2.abc.com')
                          ->issuedBy('https://api.abc.com')
                          ->issuedAt($now)
-                         ->withClaim('user', $user)
+                         ->setClaim('user', $user)
                          ->withHeader('jki', '1234')
                          ->getToken($signer, InMemory::hexEncoded($key));
 
