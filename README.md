@@ -1,7 +1,29 @@
-# JWT
+## PHP-JWT 
 
-A simple library to work with JSON Web Token and JSON Web Signature (requires PHP 5.6+).
-The implementation is based on the [RFC 7519](https://tools.ietf.org/html/rfc7519).
+A JWT (JSON Web Token) library for php.
+
+
+### Dependencies
+
+- PHP >= 8.1.0
+- OpenSSL Extension
+- sodium Extension
+
+
+### What the heck is a JWT?
+
+JWT.io has [a great introduction](https://jwt.io/introduction) to JSON Web Tokens.
+
+In short, it's a signed JSON object that does something useful (for example, authentication).  It's commonly used for `Bearer` tokens in Oauth 2.  A token is made of three parts, separated by `.`'s.  The first two parts are JSON objects, that have been [base64url](https://datatracker.ietf.org/doc/html/rfc4648) encoded.  The last part is the signature, encoded the same way.
+
+The first part is called the header.  It contains the necessary information for verifying the last part, the signature.  For example, which encryption method was used for signing and what key was used.
+
+The part in the middle is the interesting bit.  It's called the Claims and contains the actual stuff you care about.  Refer to [RFC 7519](https://datatracker.ietf.org/doc/html/rfc7519) for information about reserved keys and the proper way to add your own.
+
+
+### What's in the box?
+
+This library supports the parsing and verification as well as the generation and signing of JWTs.  Current supported signing algorithms are HMAC SHA, RSA, RSA-PSS, and ECDSA, though hooks are present for adding your own.
 
 
 ## Installation
@@ -12,68 +34,46 @@ you can install it using [Composer](http://getcomposer.org).
 composer require deatil/php-jwt
 ```
 
-### Dependencies
 
-- PHP >= 8.1.0
-- OpenSSL Extension
-- sodium Extension
+### Get Starting
 
-## Basic usage
-
-### Creating
-
-Just use the builder to create a new JWT/JWS tokens:
-
-```php
+~~~php
 use DateTimeImmutable;
 use Deatil\JWT\Builder;
-use Deatil\JWT\Signer\None;
+use Deatil\JWT\Parser;
+use Deatil\JWT\Validator;
+use Deatil\JWT\Signer\Hmac\HS256;
 use Deatil\JWT\Signer\Key\InMemory;
 
-$now    = new DateTimeImmutable();
-$signer = new None();
-$key    = InMemory::plainText('testing')
+$signer = new HS256();
+$key    = InMemory::base64Encoded('FkL2+V+1k2auI3xxTz/2skChDQVVjT9PW1/grXafg3M=');
 
-$token = (new Builder())
-    ->issuedBy('http://example.com') // Configures the issuer (iss claim)
-    ->permittedFor('http://example.org') // Configures the audience (aud claim)
-    ->identifiedBy('4f1g23a12aa', true) // Configures the id (jti claim), replicating as a header item
-    ->issuedAt($now) // Configures the time that the token was issue (iat claim)
-    ->canOnlyBeUsedAfter($now->modify('+1 minute')) // Configures the time that the token can be used (nbf claim)
-    ->expiresAt($now->modify('+1 hour')) // Configures the expiration time of the token (exp claim)
-    ->withClaim('uid', 1) // Configures a new claim, called "uid"
-    ->getToken($signer, $key); // Retrieves the generated token
+$t      = new DateTimeImmutable();
+$claims = [
+    "iss" => "joe",
+    "exp" => $t->setTimestamp(1300819380),
+    "http://example.com/is_root" => true,
+];
 
-$token->headers()->all(); // Retrieves the token headers
-$token->claims()->all(); // Retrieves the token claims
+$token = Facade::sign($signer, $claims, $key);
+$tokenStr = $token->toString();
 
-echo $token->headers()->get('jti'); // will print "4f1g23a12aa"
-echo $token->claims()->get('iss'); // will print "http://example.com"
-echo $token->claims()->get('uid'); // will print "1"
-echo $token->toString(); // The string representation of the object is a JWT string (pretty easy, right?)
-```
+// ouput:
+// make token: eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJqb2UiLCJleHAiOjEzMDA4MTkzODAsImh0dHA6Ly9leGFtcGxlLmNvbS9pc19yb290Ijp0cnVlfQ.CjlHUxjA0Z78-klPuDgGNjbK29ZiEIEh-D4Gnm5JkQ4
+echo "make token: {$tokenStr}";
 
-### Parsing from strings
+$token = Facade::parse($signer, $tokenStr, $key);
+$iss = $token->claims()->get('iss');
 
-Use the parser to create a new token from a JWT string (using the previous token as example):
+// ouput:
+// token iss: joe
+echo "token iss: {$iss}";
+~~~
 
-```php
-use Deatil\JWT\Parser;
 
-$token = (new Parser())->parse((string) $tokenString); // Parses from a string
-$token->headers()->all(); // Retrieves the token headers
-$token->claims()->all(); // Retrieves the token claims
+### Token Validator
 
-echo $token->headers()->get('jti'); // will print "4f1g23a12aa"
-echo $token->claims()->get('iss'); // will print "http://example.com"
-echo $token->claims()->get('uid'); // will print "1"
-```
-
-### Validating
-
-We can easily validate if the token is valid (using the previous token and time as example):
-
-```php
+~~~php
 use DateTimeImmutable;
 use Deatil\JWT\Validator;
 use Deatil\JWT\ValidationData;
@@ -118,98 +118,78 @@ var_dump($validation->validate($token, $dataWithLeeway)); // true, because curre
 $dataWithLeeway->currentTime($now->modify('+4000 seconds')); // changing the validation time to future outside of leeway
 
 var_dump($validation->validate($token, $dataWithLeeway)); // false, because token is expired since current time is greater than exp
-```
+~~~
 
-#### Important
 
-- You have to configure ```ValidationData``` informing all claims you want to validate the token.
-- If ```ValidationData``` contains claims that are not being used in token or token has claims that are not
-configured in ```ValidationData``` they will be ignored by ```Token::validate()```.
-- ```exp```, ```nbf``` and ```iat``` claims are configured by default in ```ValidationData::__construct()```
-with the current time (```DateTimeImmutable```).
-- The optional ```$leeway``` parameter of ```ValidationData``` will cause us to use that number of seconds of leeway 
-when validating the time-based claims, pretending we are further in the future for the "Issued At" (```iat```) and "Not 
-Before" (```nbf```) claims and pretending we are further in the past for the "Expiration Time" (```exp```) claim. This
-allows for situations where the clock of the issuing server has a different time than the clock of the verifying server, 
-as mentioned in [section 4.1 of RFC 7519](https://tools.ietf.org/html/rfc7519#section-4.1).
+### Signing Methods
 
-## Token signature
+The JWT library have signing methods:
 
-We can use signatures to be able to verify if the token was not modified after its generation. This library implements `Hmac`, `RSA`, `ECDSA`, `EdDSA` and `Blake2b` signatures (using 256, 384 and 512). The `none` is not signatures.
+ - `ES256`: Deatil\JWT\Signer\Ecdsa\ES256
+ - `ES384`: Deatil\JWT\Signer\Ecdsa\ES384
+ - `ES512`: Deatil\JWT\Signer\Ecdsa\ES512
+ - `ES256K`: Deatil\JWT\Signer\Ecdsa\ES256K
+ 
+ - `EdDSA`: Deatil\JWT\Signer\Eddsa
+ - `ED25519`: Deatil\JWT\Signer\Ed25519
 
-### Important
+ - `RS256`: Deatil\JWT\Signer\Rsa\RS256
+ - `RS384`: Deatil\JWT\Signer\Rsa\RS384
+ - `RS512`: Deatil\JWT\Signer\Rsa\RS512
 
-Do not allow the string sent to the Parser to dictate which signature algorithm
-to use, or else your application will be vulnerable to a [critical JWT security vulnerability](https://auth0.com/blog/2015/03/31/critical-vulnerabilities-in-json-web-token-libraries).
+ - `HS256`: Deatil\JWT\Signer\Hmac\HS256
+ - `HS384`: Deatil\JWT\Signer\Hmac\HS384
+ - `HS512`: Deatil\JWT\Signer\Hmac\HS512
 
-The examples below are safe because the choice in `Signer` is hard-coded and
-cannot be influenced by malicious users.
+ - `BLAKE2B`: Deatil\JWT\Signer\Blake2b
 
-### Hmac and Blake2b
+ - `none`: Deatil\JWT\Signer\None
 
-Hmac signatures are really simple to be used:
 
-```php
-use DateTimeImmutable;
-use Deatil\JWT\Builder;
-use Deatil\JWT\Validator;
-use Deatil\JWT\Signer\Hmac\Sha256;
+### Sign PublicKey
+
+ECDSA PublicKey:
+~~~php
 use Deatil\JWT\Signer\Key\InMemory;
 
-$now    = new DateTimeImmutable();
-$signer = new Sha256();
-$key    = InMemory::plainText('testing');
+// from key pem
+$prikey = InMemory::plainText("-----BEGIN PRIVATE KEY-----
+...
+-----END PRIVATE KEY-----");
+$pubkey = InMemory::plainText("-----BEGIN PUBLIC KEY-----
+...
+-----END PUBLIC KEY-----");
 
-$token = (new Builder())
-    ->issuedBy('http://example.com') // Configures the issuer (iss claim)
-    ->permittedFor('http://example.org') // Configures the audience (aud claim)
-    ->identifiedBy('4f1g23a12aa', true) // Configures the id (jti claim), replicating as a header item
-    ->issuedAt($now) // Configures the time that the token was issue (iat claim)
-    ->canOnlyBeUsedAfter($now->modify('+1 minute')) // Configures the time that the token can be used (nbf claim)
-    ->expiresAt($now->modify('+1 hour')) // Configures the expiration time of the token (exp claim)
-    ->withClaim('uid', 1) // Configures a new claim, called "uid"
-    ->getToken($signer, $key); // Retrieves the generated token
+// from key pem file, have pass and $pass need set
+$prikey = InMemory::plainText(__DIR__ . '/_keys/ecdsa/private.key', $pass);
+$pubkey = InMemory::plainText(__DIR__ . '/_keys/ecdsa/pubkey.key');
+~~~
 
-$key1 = InMemory::plainText('testing 1');
-$key2 = InMemory::plainText('testing');
+EdDSA PublicKey:
+~~~php
+use Deatil\JWT\Signer\Key\InMemory;
 
-$validation = new Validator();
+// from key bytes
+$prikey = InMemory::base64Encoded("...");
+$pubkey = InMemory::base64Encoded("...");
+~~~
 
-var_dump($validation->verify($token, $signer, $key1)); // false, because the key is different
-var_dump($validation->verify($token, $signer, $key2)); // true, because the key is the same
-```
+RSA PublicKey:
+~~~php
+use Deatil\JWT\Signer\Key\InMemory;
 
-### RSA, ECDSA and EdDSA
+// from key pem
+$prikey = InMemory::plainText("-----BEGIN RSA PRIVATE KEY-----
+...
+-----END RSA PRIVATE KEY-----");
+$pubkey = InMemory::plainText("-----BEGIN RSA PUBLIC KEY-----
+...
+-----END RSA PUBLIC KEY-----");
 
-RSA, ECDSA and EdDSA signatures are based on public and private keys so you have to generate using the private key and verify using the public key:
-
-```php
-use DateTimeImmutable;
-use Deatil\JWT\Builder;
-use Deatil\JWT\Validator;
-use Deatil\JWT\Signer\Key\LocalFileReference;
-use Deatil\JWT\Signer\Rsa\Sha256; // you can use Deatil\JWT\Signer\Ecdsa\Sha256 if you're using ECDSA keys
-
-$now        = new DateTimeImmutable();
-$signer     = new Sha256();
-$privateKey = LocalFileReference::file('file://{path to your private key}');
-
-$token = (new Builder())
-    ->issuedBy('http://example.com') // Configures the issuer (iss claim)
-    ->permittedFor('http://example.org') // Configures the audience (aud claim)
-    ->identifiedBy('4f1g23a12aa', true) // Configures the id (jti claim), replicating as a header item
-    ->issuedAt($now) // Configures the time that the token was issue (iat claim)
-    ->canOnlyBeUsedAfter($now->modify('+1 minute')) // Configures the time that the token can be used (nbf claim)
-    ->expiresAt($now->modify('+1 hour')) // Configures the expiration time of the token (exp claim)
-    ->withClaim('uid', 1) // Configures a new claim, called "uid"
-    ->getToken($signer, $privateKey); // Retrieves the generated token
-
-$publicKey = LocalFileReference::file('file://{path to your public key}');
-
-$validation = new Validator();
-
-var_dump($validation->verify($token, $signer, $publicKey)); // true when the public key was generated by the private one =)
-```
+// from key pem file, have pass and $pass need set
+$prikey = InMemory::plainText(__DIR__ . '/_keys/rsa/private.key', $pass);
+$pubkey = InMemory::plainText(__DIR__ . '/_keys/rsa/pubkey.key');
+~~~
 
 
 ### LICENSE

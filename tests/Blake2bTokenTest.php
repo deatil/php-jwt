@@ -1,7 +1,7 @@
 <?php
 declare(strict_types=1);
 
-namespace Lcobucci\JWT\Tests;
+namespace Deatil\JWT\Tests;
 
 use PHPUnit\Framework\TestCase;
 
@@ -9,12 +9,11 @@ use SodiumException;
 use DateTimeImmutable;
 use Deatil\JWT\Builder;
 use Deatil\JWT\Parser;
+use Deatil\JWT\Facade;
 use Deatil\JWT\Validator;
 use Deatil\JWT\Signer\Blake2b;
 use Deatil\JWT\Signer\Key\InMemory;
 use Deatil\JWT\Exception\InvalidKeyProvided;
-
-use function assert;
 
 class Blake2bTokenTest extends TestCase
 {
@@ -106,7 +105,7 @@ TUKzrgcd7NvlA41Y4xKcOqEA
         );
     }
 
-    public function testParserAndVerifyToken(): void
+    public function testBlake2bCheck(): void
     {
         $data = "eyJ0eXAiOiJKV1QiLCJhbGciOiJCTEFLRTJCIn0.eyJpc3MiOiJqb2UiLCJleHAiOjEzMDA4MTkzODAsImh0dHA6Ly9leGFtcGxlLmNvbS9pc19yb290Ijp0cnVlfQ.zVtM3_PWCeOBjiV3bJcx1KoxeZCUs7zqfy6DF2mfb9M";
         $key  = "0323354b2b0fa5bc837e0665777ba68f5ab328e6f054c928a90f84b2d2502ebfd3fb5a92d20647ef968ab4c377623d223d2e2172052e4f08c0cd9af567d080a3";
@@ -120,4 +119,26 @@ TUKzrgcd7NvlA41Y4xKcOqEA
         $verify = $validation->verify($token, $signer, InMemory::hexEncoded($key));
         self::assertTrue($verify);
     }
+
+    public function testBlake2bCheck2(): void
+    {
+        $signer = new Blake2b();
+        $key    = "0323354b2b0fa5bc837e0665777ba68f5ab328e6f054c928a90f84b2d2502ebfd3fb5a92d20647ef968ab4c377623d223d2e2172052e4f08c0cd9af567d080a3";
+
+        $t      = new DateTimeImmutable();
+        $claims = [
+            "iss" => "joe",
+            "exp" => $t->setTimestamp(1300819380),
+            "http://example.com/is_root" => true,
+        ];
+
+        $token = Facade::sign($signer, $claims, InMemory::hexEncoded($key));
+        $tokenStr = $token->toString();
+
+        self::assertTrue(strlen($tokenStr) > 0);
+
+        $token = Facade::parse($signer, $tokenStr, InMemory::hexEncoded($key));
+        self::assertSame("joe", $token->claims()->get('iss'));
+    }
+
 }

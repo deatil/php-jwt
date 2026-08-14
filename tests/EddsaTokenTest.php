@@ -8,12 +8,12 @@ use PHPUnit\Framework\TestCase;
 use DateTimeImmutable;
 use Deatil\JWT\Builder;
 use Deatil\JWT\Parser;
+use Deatil\JWT\Facade;
 use Deatil\JWT\Validator;
 use Deatil\JWT\Signer\Eddsa;
+use Deatil\JWT\Signer\Ed25519;
 use Deatil\JWT\Signer\Key\InMemory;
 use Deatil\JWT\Exception\InvalidKeyProvided;
-
-use function assert;
 
 class EddsaTokenTest extends TestCase
 {
@@ -63,7 +63,7 @@ class EddsaTokenTest extends TestCase
         );
     }
     
-    public function testParserAndVerifyToken(): void
+    public function testEddsaCheck(): void
     {
         $signer = new Eddsa();
         $key    = InMemory::base64Encoded('R0TLf2hkQaCg/z7eR/4mIBgpWu0NOAnYzlKS0q42YbY=');
@@ -83,4 +83,38 @@ class EddsaTokenTest extends TestCase
         $verify = $validation->verify($token, $signer, $key);
         self::assertTrue($verify);
     }
+    
+    public function testEddsaCheck2(): void
+    {
+        $signer = new Eddsa();
+        $prikey = "414c119ae6958c5ccd7285c4894dbcd191e4942f0e14e42e8bc9631c10777b9a587ef3ea1a58aaf3e7b368b89fdcb29b0bc1dc03e18b82f243b887393e9caed1";
+        $pubkey = "587ef3ea1a58aaf3e7b368b89fdcb29b0bc1dc03e18b82f243b887393e9caed1";
+
+        $t      = new DateTimeImmutable();
+        $claims = [
+            "iss" => "joe",
+            "exp" => $t->setTimestamp(1300819380),
+            "http://example.com/is_root" => true,
+        ];
+
+        $token = Facade::sign($signer, $claims, InMemory::hexEncoded($prikey));
+        $tokenStr = $token->toString();
+
+        self::assertTrue(strlen($tokenStr) > 0);
+
+        $token = Facade::parse($signer, $tokenStr, InMemory::hexEncoded($pubkey));
+        self::assertSame("joe", $token->claims()->get('iss'));
+    }
+
+    public function testEddsaCheck3(): void
+    {
+        $signer = new Ed25519();
+        $pubkey = "587ef3ea1a58aaf3e7b368b89fdcb29b0bc1dc03e18b82f243b887393e9caed1";
+
+        $tokenStr = "eyJhbGciOiJFRDI1NTE5IiwidHlwIjoiSldUIn0.eyJmb28iOiJiYXIifQ.ESuVzZq1cECrt9Od_gLPVG-_6uRP_8Nq-ajx6CtmlDqRJZqdejro2ilkqaQgSL-siE_3JMTUW7UwAorLaTyFCw";
+
+        $token = Facade::parse($signer, $tokenStr, InMemory::hexEncoded($pubkey));
+        self::assertSame("bar", $token->claims()->get('foo'));
+    }
+
 }

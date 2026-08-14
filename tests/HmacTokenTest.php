@@ -8,13 +8,12 @@ use PHPUnit\Framework\TestCase;
 use DateTimeImmutable;
 use Deatil\JWT\Builder;
 use Deatil\JWT\Parser;
+use Deatil\JWT\Facade;
 use Deatil\JWT\Validator;
 use Deatil\JWT\Signer\Hmac\HS256;
 use Deatil\JWT\Signer\Hmac\HS384;
 use Deatil\JWT\Signer\Hmac\HS512;
 use Deatil\JWT\Signer\Key\InMemory;
-
-use function assert;
 
 class HmacTokenTest extends TestCase
 {
@@ -56,7 +55,7 @@ class HmacTokenTest extends TestCase
         self::assertTrue($verify);
     }
 
-    public function testHS256Check2(): void
+    public function testHS256Check3(): void
     {
         $signer   = new HS256();
         $key      = "0323354b2b0fa5bc837e0665777ba68f5ab328e6f054c928a90f84b2d2502ebfd3fb5a92d20647ef968ab4c377623d223d2e2172052e4f08c0cd9af567d080a3";
@@ -103,4 +102,68 @@ class HmacTokenTest extends TestCase
         $verify = $validation->verify($token, $signer, InMemory::hexEncoded($key));
         self::assertTrue($verify);
     }
+
+    public function testHS256Check2(): void
+    {
+        $signer = new HS256();
+        $key    = InMemory::base64Encoded('FkL2+V+1k2auI3xxTz/2skChDQVVjT9PW1/grXafg3M=');
+
+        $t      = new DateTimeImmutable();
+        $claims = [
+            "iss" => "joe",
+            "exp" => $t->setTimestamp(1300819380),
+            "http://example.com/is_root" => true,
+        ];
+
+        $token = Facade::sign($signer, $claims, $key);
+        $tokenStr = $token->toString();
+
+        self::assertTrue(strlen($tokenStr) > 0);
+
+        $token = Facade::parse($signer, $tokenStr, $key);
+        self::assertSame("joe", $token->claims()->get('iss'));
+    }
+
+    public function testHS384Check2(): void
+    {
+        $signer = new HS384();
+        $key    = "0323354b2b0fa5bc837e0665777ba68f5ab328e6f054c928a90f84b2d2502ebfd3fb5a92d20647ef968ab4c377623d223d2e2172052e4f08c0cd9af567d080a3";
+
+        $t      = new DateTimeImmutable();
+        $claims = [
+            "iss" => "joe",
+            "exp" => $t->setTimestamp(1300819380),
+            "http://example.com/is_root" => true,
+        ];
+
+        $token = Facade::sign($signer, $claims, InMemory::hexEncoded($key));
+        $tokenStr = $token->toString();
+
+        self::assertTrue(strlen($tokenStr) > 0);
+
+        $token = Facade::parse($signer, $tokenStr, InMemory::hexEncoded($key));
+        self::assertSame("joe", $token->claims()->get('iss'));
+    }
+
+    public function testHS512Check2(): void
+    {
+        $signer = new HS512();
+        $key    = "0323354b2b0fa5bc837e0665777ba68f5ab328e6f054c928a90f84b2d2502ebfd3fb5a92d20647ef968ab4c377623d223d2e2172052e4f08c0cd9af567d080a3";
+
+        $t      = new DateTimeImmutable();
+        $claims = [
+            "iss" => "joe",
+            "exp" => $t->setTimestamp(1300819380),
+            "http://example.com/is_root" => true,
+        ];
+
+        $token = Facade::sign($signer, $claims, InMemory::hexEncoded($key));
+        $tokenStr = $token->toString();
+
+        self::assertTrue(strlen($tokenStr) > 0);
+
+        $token = Facade::parse($signer, $tokenStr, InMemory::hexEncoded($key));
+        self::assertSame("joe", $token->claims()->get('iss'));
+    }
+
 }

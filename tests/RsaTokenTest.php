@@ -16,8 +16,6 @@ use Deatil\JWT\Signer\Rsa\RS512;
 use Deatil\JWT\Signer\Key\InMemory;
 use Deatil\JWT\Exception\InvalidKeyProvided;
 
-use function assert;
-
 class RsaTokenTest extends TestCase
 {
     public function testBuilderShouldRaiseExceptionWhenKeyIsInvalid(): void
@@ -241,7 +239,148 @@ wRipr3nUTuxyGohBTSmjJ2usSeQXHI3bODIRe1AuTyHceAbewn8b462yEWKARdpd
         self::assertSame("joe", $token->claims()->get('iss'));
     }
 
+    public function testRS384Check2(): void
+    {
+        // pkcs1 pubkey
+        $signer = new RS384();
+        $prikey = "-----BEGIN RSA PRIVATE KEY-----
+MIIEogIBAAKCAQEArFl9Kb6QL5mZ9HuiEvf9R2RTRc3sz3PfDQDUkMNlp75qpB8i
+HmA3Yn+OR4rCtcjX5j138fs6LG5tjlVCyjn6w1DlWJM18fHaRllkDUiq9zdxAXdH
++Yf9TMOuHFbxL+/MOZKyUnRdsS4fnkKA7dEyyCpjew2ffVB7VjD2754GKOcBL2aq
+walchkhNEPh0uI5oOuHqk87SiuAM2ZDIb2wd+xI1L36P9HrPrwekoWkAM+Wxnu4G
+ApoM87UKEUchiGxlkWEHM0dSM4XThhrXlSLRJN3izEw+8BQK7H8zd/MD/br+2Hr7
+SYxpEsi3k4y4HC+RYPt6oDNrFW1irO2sva6TRwIDAQABAoIBADkd4xvtem0780iR
+nHG626ZIOkyc5QkPNnFhwBBFoS/JLCA97Rmx+0jaSvWsp8CE0gAMiO6Zunq1Efuk
+h+Dq/A60hX0oNC19YEAGKeE5HueU6Q96T1ED308MXmwn6ABh8QV3dz9aLx6j0Xiq
+Q34M4U5ytcs3BY8LGATFb2CTtyjgcidzsWVJd5b41KDSUQhFYDXxUfJ0ToWGHCu2
+KCImXbcQdKyUKunaEd/p0ghO9AEhVeYAr3CAtKhOJ56boBNKQ1QawBeM1KVRBI9P
+sgSMLBxKBI9veNCwuawdd5VJo8e5EdeGBxHDT/OXTG+QdJpbLaz+Clfq1nzCzMTY
+DVcv1cECgYEAyMpdDM/PdDq+Fpk7Xuuj9ZAbKIEQueS2gLCUH7jnlvYuQZfLhAyy
+GBjI6vaVDh7Go3+oycB8VmVHs2Um9p63LgxOwatBkFmf/F1u9aHH/oD14O8hUhX1
+1uqm/VvPPkvvg0AOxbYT897vGsyFZVwS3a9KdaDVx9noz5FnRGYhG2ECgYEA270r
+jaTHNv26wYiqT3F933rqTwkcEtoWhurCjSbLQCClh/dB/g44rCdefdvlolTNUATQ
+UNYEPVz4rzHkeHvNfZm4mzHxjVm7GkIFpdupLKnMWFzd4gqgZarX/bBYhJRORokW
+5oAHh9/IZzgmHtfUeKnJKr1eYyDRLu9KdQigF6cCgYAW9oWzvGRmT32DyhxvG5XR
+tJxWgoQuLkjs6MTX5+acbiUWHU0KGgWYGeWIcZDUX5KqCiR8hkXx/302t/+/vqEG
+ZCPxpCtIXeedDfZtowXjRk5YXiC6aYaHAKj+WqyV3EtVAFNwKwWXI0zHDNLIp8IE
+llJ2p2ErjPFCI8fim6d3oQKBgAL7EPEt8And7T+c0/qZ5oQ2jaEe1YOn87BG1PbH
+NPCcwMIUZ4/Dr58eNZjtd7L5BYP1XMIL9SjD7xepTJkZzNLMWAW66rTpJ7GWfa8f
+SK8zanM0Z0oerMhURfPKBZlezaUFTQs5Z2C/d193EoVOljJA01rCENq1YkEJu+/U
+ex93AoGAH15vFej3Bx9cLBRgDOhnS9Lz7U02q3y0iaPcPM85gWVgQbN8otTvdoE/
+tjIDYVtKEopJUCLUkg5j2n3HgluOFvXiz88kdWaARXg5Ai5i0u2Mv0iUr2XZ+xmd
+cpfSW47xyzigAlyf50WIgCNexW/bpwlKI4Mx6QF6/hOQoo6NG84=
+-----END RSA PRIVATE KEY-----";
+        $pubkey = "-----BEGIN RSA PUBLIC KEY-----
+MIIBCgKCAQEArFl9Kb6QL5mZ9HuiEvf9R2RTRc3sz3PfDQDUkMNlp75qpB8iHmA3
+Yn+OR4rCtcjX5j138fs6LG5tjlVCyjn6w1DlWJM18fHaRllkDUiq9zdxAXdH+Yf9
+TMOuHFbxL+/MOZKyUnRdsS4fnkKA7dEyyCpjew2ffVB7VjD2754GKOcBL2aqwalc
+hkhNEPh0uI5oOuHqk87SiuAM2ZDIb2wd+xI1L36P9HrPrwekoWkAM+Wxnu4GApoM
+87UKEUchiGxlkWEHM0dSM4XThhrXlSLRJN3izEw+8BQK7H8zd/MD/br+2Hr7SYxp
+Esi3k4y4HC+RYPt6oDNrFW1irO2sva6TRwIDAQAB
+-----END RSA PUBLIC KEY-----";
+
+        $t      = new DateTimeImmutable();
+        $claims = [
+            "iss" => "joe",
+            "exp" => $t->setTimestamp(1300819380),
+            "http://example.com/is_root" => true,
+        ];
+
+        $token = Facade::sign($signer, $claims, InMemory::plainText($prikey));
+        $tokenStr = $token->toString();
+
+        self::assertTrue(strlen($tokenStr) > 0);
+
+        $token = Facade::parse($signer, $tokenStr, InMemory::plainText($pubkey));
+        self::assertSame("joe", $token->claims()->get('iss'));
+    }
+
     public function testRS512Check2(): void
+    {
+        // pkcs1 pubkey
+        $signer = new RS512();
+        $prikey = "-----BEGIN RSA PRIVATE KEY-----
+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
+-----END RSA PRIVATE KEY-----";
+        $pubkey = "-----BEGIN RSA PUBLIC KEY-----
+MIICCgKCAgEAsZYeUijvz4Ghg9a9eR+4lGGlB7Iyrck66EJxyP+RKH3izCG16gHk
+D8r3pm6UsJ1EHQZqSsb6GG9n1T67xESZgIsDFj+AzhOgH1pNXbe5FAoyMOLp3pT2
+XRs4ck8PEHdKyUHD2WfY52e39WNJ5O1mLY9JYfg7K1ThGeyQ1+f5T8B8U1ZMiLDv
+63XullUNjswxY2KEHcb4gOK0GU7fb4ENFOYDqnxjlOlt6gpIM5nRhTp5wR3eHXQz
+bJU0rqUIM+2w+a81p+Uda1UcnUGgxdxo/KCtCo5Aj69B+Iti1TLkZ4warYRm/NLK
+QN3jmfoaBUyo5C+7p15xghZDto9kNpsPhAdcVVKPQV6RhJizK0ydZSPHycjLdfhQ
+NWH+G2mI2FMXqM/pwmIxZbmK9EfGisZRmF9k/2kebx/kyXDsCT8fw1LpkeZVYV1/
+s5SwpaONlEolbFYFWPV3ukRVN2EYsOM2EeEeDb16Qy0CXHfL8UxErZIe3O42vIsl
+50dqXnMC3Ro3sIjPy68Q1sUHYSWDmOrdnodZvQYT+8zYj4LTa/uS0wbheoItjz4H
+K5/vCt7Ffh1jqoT1+9GNlt3DGoH36HYH8fsEgZ11EOiG4GaL1J7YazipHrgFZS/7
+YuZOrHVLUP473odCZkhaZCjb9dOoNxawJqxM9mi2ZVRF8EjTp7QO3EECAwEAAQ==
+-----END RSA PUBLIC KEY-----";
+
+        $t      = new DateTimeImmutable();
+        $claims = [
+            "iss" => "joe",
+            "exp" => $t->setTimestamp(1300819380),
+            "http://example.com/is_root" => true,
+        ];
+
+        $token = Facade::sign($signer, $claims, InMemory::plainText($prikey));
+        $tokenStr = $token->toString();
+
+        self::assertTrue(strlen($tokenStr) > 0);
+
+        $token = Facade::parse($signer, $tokenStr, InMemory::plainText($pubkey));
+        self::assertSame("joe", $token->claims()->get('iss'));
+    }
+
+    public function testRS512Check3(): void
     {
         $signer = new RS512();
         $pubkey = "-----BEGIN RSA PUBLIC KEY-----
