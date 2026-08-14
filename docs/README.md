@@ -28,7 +28,7 @@ Just use the builder to create a new JWT/JWS tokens:
 use DateTimeImmutable;
 use Deatil\JWT\Builder;
 use Deatil\JWT\Signer\None;
-use Deatil\JWT\Signer\Key\InMemory;
+use Deatil\JWT\Key\InMemory;
 
 $now    = new DateTimeImmutable();
 $signer = new None();
@@ -154,7 +154,7 @@ use DateTimeImmutable;
 use Deatil\JWT\Builder;
 use Deatil\JWT\Validator;
 use Deatil\JWT\Signer\Hmac\HS256;
-use Deatil\JWT\Signer\Key\InMemory;
+use Deatil\JWT\Key\InMemory;
 
 $now    = new DateTimeImmutable();
 $signer = new HS256();
@@ -187,7 +187,7 @@ RSA, ECDSA and EdDSA signatures are based on public and private keys so you have
 use DateTimeImmutable;
 use Deatil\JWT\Builder;
 use Deatil\JWT\Validator;
-use Deatil\JWT\Signer\Key\LocalFileReference;
+use Deatil\JWT\Key\LocalFileReference;
 use Deatil\JWT\Signer\Rsa\RS256; // you can use Deatil\JWT\Signer\Ecdsa\ES256 if you're using ECDSA keys
 
 $now        = new DateTimeImmutable();

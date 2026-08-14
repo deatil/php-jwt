@@ -13,7 +13,7 @@ use Deatil\JWT\Validator;
 use Deatil\JWT\Signer\Rsa\RS256;
 use Deatil\JWT\Signer\Rsa\RS384;
 use Deatil\JWT\Signer\Rsa\RS512;
-use Deatil\JWT\Signer\Key\InMemory;
+use Deatil\JWT\Key\InMemory;
 use Deatil\JWT\Exception\InvalidKeyProvided;
 
 class RsaTokenTest extends TestCase

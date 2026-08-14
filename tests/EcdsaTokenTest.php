@@ -14,7 +14,7 @@ use Deatil\JWT\Signer\Ecdsa\ES256;
 use Deatil\JWT\Signer\Ecdsa\ES384;
 use Deatil\JWT\Signer\Ecdsa\ES512;
 use Deatil\JWT\Signer\Ecdsa\ES256K;
-use Deatil\JWT\Signer\Key\InMemory;
+use Deatil\JWT\Key\InMemory;
 use Deatil\JWT\Exception\InvalidKeyProvided;
 
 use const PHP_EOL;

@@ -41,7 +41,7 @@ composer require deatil/php-jwt
 use DateTimeImmutable;
 use Deatil\JWT\Facade;
 use Deatil\JWT\Signer\Hmac\HS256;
-use Deatil\JWT\Signer\Key\InMemory;
+use Deatil\JWT\Key\InMemory;
 
 $signer = new HS256();
 $key    = InMemory::base64Encoded('FkL2+V+1k2auI3xxTz/2skChDQVVjT9PW1/grXafg3M=');
@@ -148,7 +148,7 @@ The JWT library have signers:
 
 ECDSA PublicKey:
 ~~~php
-use Deatil\JWT\Signer\Key\InMemory;
+use Deatil\JWT\Key\InMemory;
 
 // from key pem
 $prikey = InMemory::plainText("-----BEGIN PRIVATE KEY-----
@@ -165,7 +165,7 @@ $pubkey = InMemory::file(__DIR__ . '/_keys/ecdsa/pubkey.key');
 
 EdDSA PublicKey:
 ~~~php
-use Deatil\JWT\Signer\Key\InMemory;
+use Deatil\JWT\Key\InMemory;
 
 // from key bytes
 $prikey = InMemory::base64Encoded("...");
@@ -174,7 +174,7 @@ $pubkey = InMemory::base64Encoded("...");
 
 RSA PublicKey:
 ~~~php
-use Deatil\JWT\Signer\Key\InMemory;
+use Deatil\JWT\Key\InMemory;
 
 // from key pem string with pkcs1 key
 $prikey = InMemory::plainText("-----BEGIN RSA PRIVATE KEY-----

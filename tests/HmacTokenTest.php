@@ -13,7 +13,7 @@ use Deatil\JWT\Validator;
 use Deatil\JWT\Signer\Hmac\HS256;
 use Deatil\JWT\Signer\Hmac\HS384;
 use Deatil\JWT\Signer\Hmac\HS512;
-use Deatil\JWT\Signer\Key\InMemory;
+use Deatil\JWT\Key\InMemory;
 
 class HmacTokenTest extends TestCase
 {

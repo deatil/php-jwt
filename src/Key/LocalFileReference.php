@@ -2,7 +2,7 @@
 
 declare (strict_types = 1);
 
-namespace Deatil\JWT\Signer\Key;
+namespace Deatil\JWT\Key;
 
 use Deatil\JWT\Contracts\Key;
 use Deatil\JWT\Exception\FileCouldNotBeRead;

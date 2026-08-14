@@ -5,8 +5,8 @@ namespace Deatil\JWT\Tests;
 
 use PHPUnit\Framework\TestCase;
 
-use Deatil\JWT\Signer\Key\InMemory;
-use Deatil\JWT\Signer\Key\LocalFileReference;
+use Deatil\JWT\Key\InMemory;
+use Deatil\JWT\Key\LocalFileReference;
 
 class InMemoryTest extends TestCase
 {

@@ -12,7 +12,7 @@ use Deatil\JWT\Facade;
 use Deatil\JWT\Validator;
 use Deatil\JWT\Signer\Eddsa;
 use Deatil\JWT\Signer\Ed25519;
-use Deatil\JWT\Signer\Key\InMemory;
+use Deatil\JWT\Key\InMemory;
 use Deatil\JWT\Exception\InvalidKeyProvided;
 
 class EddsaTokenTest extends TestCase

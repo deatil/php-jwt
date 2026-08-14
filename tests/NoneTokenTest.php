@@ -11,7 +11,7 @@ use Deatil\JWT\Parser;
 use Deatil\JWT\Facade;
 use Deatil\JWT\Validator;
 use Deatil\JWT\Signer\None;
-use Deatil\JWT\Signer\Key\InMemory;
+use Deatil\JWT\Key\InMemory;
 use Deatil\JWT\Exception\InvalidKeyProvided;
 
 class NoneTokenTest extends TestCase

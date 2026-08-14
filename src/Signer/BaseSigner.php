@@ -6,7 +6,7 @@ namespace Deatil\JWT\Signer;
 
 use Deatil\JWT\Contracts\Key;
 use Deatil\JWT\Contracts\Signer;
-use Deatil\JWT\Signer\Key\InMemory;
+use Deatil\JWT\Key\InMemory;
 use Deatil\JWT\Claim\RegisteredHeaders;
 
 use function is_string;
