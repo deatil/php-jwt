@@ -58,14 +58,14 @@ $tokenStr = $token->toString();
 
 // ouput:
 // make token: eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJqb2UiLCJleHAiOjEzMDA4MTkzODAsImh0dHA6Ly9leGFtcGxlLmNvbS9pc19yb290Ijp0cnVlfQ.CjlHUxjA0Z78-klPuDgGNjbK29ZiEIEh-D4Gnm5JkQ4
-echo "make token: {$tokenStr}";
+echo "make token: {$tokenStr} \n";
 
 $token = Facade::parse($signer, $tokenStr, $key);
 $iss = $token->claims()->get('iss');
 
 // ouput:
 // token iss: joe
-echo "token iss: {$iss}";
+echo "token iss: {$iss} \n";
 ~~~
 
 
