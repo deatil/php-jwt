@@ -9,7 +9,7 @@
     ],
     "homepage": "https://github.com/deatil/php-jwt",
     "type": "library",
-    "license": "Apache2",
+    "license": "Apache-2.0",
     "authors": [
         {
             "name": "deatil",
