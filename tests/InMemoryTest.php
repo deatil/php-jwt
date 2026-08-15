@@ -57,7 +57,7 @@ U+GeRqC7zN0aTnTQajarUylKJ3UWr/r1kg==
 
     public function testFile2(): void
     {
-        $key = LocalFileReference::file(__DIR__ . '/_keys/ecdsa/private.key', "pass");
+        $key = LocalFileReference::file('file://' . __DIR__ . '/_keys/ecdsa/private.key', "pass");
         $prikey = "-----BEGIN EC PRIVATE KEY-----
 MHcCAQEEIBGpMoZJ64MMSzuo5JbmXpf9V4qSWdLIl/8RmJLcfn/qoAoGCCqGSM49
 AwEHoUQDQgAE7it/EKmcv9bfpcV1fBreLMRXxWpnd0wxa2iFruiI2tsEdGFTLTsy

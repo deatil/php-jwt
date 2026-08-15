@@ -5,7 +5,7 @@ A JWT (JSON Web Token) library for php.
 
 ### Dependencies
 
-- PHP >= 8.1.0
+- PHP >= 8.2.0
 - OpenSSL Extension
 - sodium Extension
 
@@ -158,7 +158,7 @@ $pubkey = InMemory::plainText("-----BEGIN PUBLIC KEY-----
 ...
 -----END PUBLIC KEY-----");
 
-// from key pem file, have pass and $pass need set
+// from key pem file, if have pass and $pass need set
 $prikey = InMemory::file(__DIR__ . '/_keys/ecdsa/private.key', $pass);
 $pubkey = InMemory::file(__DIR__ . '/_keys/ecdsa/pubkey.key');
 ~~~
@@ -184,7 +184,7 @@ $pubkey = InMemory::plainText("-----BEGIN RSA PUBLIC KEY-----
 ...
 -----END RSA PUBLIC KEY-----");
 
-// from key pem file, have pass and $pass need set
+// from key pem file, if have pass and $pass need set
 $prikey = InMemory::file(__DIR__ . '/_keys/rsa/private.key', $pass);
 $pubkey = InMemory::file(__DIR__ . '/_keys/rsa/pubkey.key');
 ~~~
