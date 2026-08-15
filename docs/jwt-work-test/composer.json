@@ -1,0 +1,25 @@
+{
+    "name": "deatil/jwt-work-test",
+    "description": "A php-jwt test web.",
+    "keywords": [
+        "php",
+        "php-jwt",
+        "JWT",
+        "JWS"
+    ],
+    "homepage": "https://github.com/deatil/php-jwt",
+    "license": "Apache2",
+    "authors": [
+        {
+            "name": "deatil",
+            "email": "deatil@github.com",
+            "homepage": "https://github.com/deatil",
+            "role": "Developer"
+        }
+    ],
+    "require": {
+        "slim/slim": "^4.15",
+        "deatil/php-jwt": "^0.0.3",
+        "guzzlehttp/psr7": "^3.0"
+    }
+}
