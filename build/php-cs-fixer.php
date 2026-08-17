@@ -11,9 +11,9 @@ return (new PhpCsFixer\Config())
             'array_syntax' => ['syntax' => 'short'],
             // Function Notation
             'native_function_invocation' => [
-                'exclude' => ['@all'], 
-                'include' => [], 
-                'scope' => 'all', 
+                'exclude' => ['@all'],
+                'include' => [],
+                'scope' => 'all',
                 'strict' => true,
             ],
             // Import
