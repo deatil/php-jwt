@@ -1,11 +1,10 @@
 <?php
 
-declare (strict_types = 1);
+declare(strict_types=1);
 
 namespace Deatil\JWT\Signer;
 
 use SodiumException;
-
 use Deatil\JWT\Contracts\Key;
 use Deatil\JWT\Exception\InvalidKeyProvided;
 
@@ -21,7 +20,7 @@ final class ED25519 extends BaseSigner
     {
         return 'ED25519';
     }
-    
+
     public function createSignature(string $payload, Key $key): string
     {
         try {

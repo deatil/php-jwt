@@ -1,11 +1,10 @@
 <?php
 
-declare (strict_types = 1);
+declare(strict_types=1);
 
 namespace Deatil\JWT;
 
 use DateTimeImmutable;
-
 use Deatil\JWT\Contracts\Key;
 use Deatil\JWT\Contracts\Signer;
 use Deatil\JWT\Contracts\Encoder;
@@ -28,7 +27,7 @@ final class Builder
      * @var array
      */
     private array $headers = [
-        RegisteredHeaders::TYPE      => 'JWT', 
+        RegisteredHeaders::TYPE      => 'JWT',
         RegisteredHeaders::ALGORITHM => 'none'
     ];
 
@@ -60,7 +59,7 @@ final class Builder
      * @param ClaimsFormatter $claimFormatter
      */
     public function __construct(
-        ?Encoder         $encoder = null,
+        ?Encoder $encoder = null,
         ?ClaimsFormatter $claimFormatter = null
     ) {
         $this->encoder        = $encoder ?: new JoseEncoder();
@@ -193,7 +192,7 @@ final class Builder
 
         return $this;
     }
-    
+
     /**
      * Returns the encoded data
      *
@@ -216,10 +215,10 @@ final class Builder
     public function getToken(Signer $signer, Key $key): UnencryptedToken
     {
         $signer->modifyHeader($this->headers);
-        
+
         $encodedHeaders = $this->encode($this->headers);
         $encodedClaims  = $this->encode($this->claimFormatter->formatClaims($this->claims));
-        
+
         $signature        = $signer->sign($encodedHeaders . '.' . $encodedClaims, $key);
         $encodedSignature = $this->encoder->base64UrlEncode($signature);
 

@@ -1,11 +1,10 @@
 <?php
 
-declare (strict_types = 1);
+declare(strict_types=1);
 
 namespace Deatil\JWT;
 
 use DateTimeImmutable;
-
 use Deatil\JWT\Clock\SystemClock;
 use Deatil\JWT\Claim\RegisteredClaims;
 use Deatil\JWT\Contracts\ValidationData as BaseValidationData;
@@ -37,7 +36,7 @@ final class ValidationData implements BaseValidationData
      * @param int               $leeway
      */
     public function __construct(
-        ?DateTimeImmutable $currentTime = null, 
+        ?DateTimeImmutable $currentTime = null,
         int $leeway = 0
     ) {
         $currentTime  = $currentTime ?: SystemClock::fromSystemTimezone()->now();
@@ -111,7 +110,7 @@ final class ValidationData implements BaseValidationData
     public function currentTime(DateTimeImmutable $currentTime): void
     {
         $leeway = $this->leeway;
-        
+
         $this->items[RegisteredClaims::ISSUED_AT]       = $currentTime->modify("+{$leeway} second");
         $this->items[RegisteredClaims::NOT_BEFORE]      = $currentTime->modify("+{$leeway} second");
         $this->items[RegisteredClaims::EXPIRATION_TIME] = $currentTime->modify("-{$leeway} second");

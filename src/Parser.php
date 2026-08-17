@@ -1,12 +1,11 @@
 <?php
 
-declare (strict_types = 1);
+declare(strict_types=1);
 
 namespace Deatil\JWT;
 
 use DateTimeImmutable;
 use InvalidArgumentException;
-
 use Deatil\JWT\Contracts\Decoder;
 use Deatil\JWT\Contracts\UnencryptedToken;
 use Deatil\JWT\Encoding\JoseEncoder;
@@ -54,7 +53,7 @@ final class Parser
     public function parse(string $jwt): UnencryptedToken
     {
         [$encodedHeaders, $encodedClaims, $encodedSignature] = $this->splitJwt($jwt);
-        
+
         $header = $this->parseHeader($encodedHeaders);
         $claims = $this->parseClaims($encodedClaims);
 
@@ -107,7 +106,7 @@ final class Parser
         if (isset($header[RegisteredHeaders::ENCRYPTION])) {
             throw new InvalidArgumentException('Encryption is not supported yet');
         }
-        
+
         if (! array_key_exists(RegisteredHeaders::TYPE, $header)) {
             $header[RegisteredHeaders::TYPE] = 'JWT';
         }
@@ -140,7 +139,7 @@ final class Parser
 
         return $claims;
     }
-    
+
     /**
      * Returns the decoded data
      *
@@ -169,7 +168,7 @@ final class Parser
             }
         }
     }
-    
+
     /** @throws InvalidTokenStructure */
     private function convertDate(int|float|string $timestamp): DateTimeImmutable
     {

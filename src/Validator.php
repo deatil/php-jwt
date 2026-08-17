@@ -1,11 +1,10 @@
 <?php
 
-declare (strict_types = 1);
+declare(strict_types=1);
 
 namespace Deatil\JWT;
 
 use Generator;
-
 use Deatil\JWT\Contracts\Key;
 use Deatil\JWT\Contracts\Signer;
 use Deatil\JWT\Contracts\Validatable;
@@ -29,7 +28,7 @@ final class Validator
         if ($token->headers()->get(RegisteredHeaders::ALGORITHM) !== $signer->getAlgorithmId()) {
             return false;
         }
-        
+
         $hash    = $token->signature()->hash();
         $payload = $token->payload();
 
@@ -51,7 +50,7 @@ final class Validator
     {
         foreach ($token->claims()->all() as $name => $value) {
             $claim = $this->claimFactory->create($name, $value);
-            
+
             if ($claim instanceof Validatable) {
                 yield $claim;
             }

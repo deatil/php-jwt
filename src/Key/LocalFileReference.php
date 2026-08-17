@@ -1,6 +1,6 @@
 <?php
 
-declare (strict_types = 1);
+declare(strict_types=1);
 
 namespace Deatil\JWT\Key;
 
@@ -25,8 +25,8 @@ final class LocalFileReference implements Key
         $this->passphrase = $passphrase;
     }
 
-    /** 
-     * @throws FileCouldNotBeRead 
+    /**
+     * @throws FileCouldNotBeRead
      */
     public static function file(string $path, string $passphrase = ''): self
     {

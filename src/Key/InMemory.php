@@ -1,12 +1,11 @@
 <?php
 
-declare (strict_types = 1);
+declare(strict_types=1);
 
 namespace Deatil\JWT\Key;
 
 use Throwable;
 use SplFileObject;
-
 use Deatil\JWT\Contracts\Key;
 use Deatil\JWT\Exception\FileCouldNotBeRead;
 use Deatil\JWT\Exception\CannotDecodeContent;

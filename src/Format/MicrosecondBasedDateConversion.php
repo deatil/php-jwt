@@ -5,7 +5,6 @@ declare(strict_types=1);
 namespace Deatil\JWT\Format;
 
 use DateTimeInterface;
-
 use Deatil\JWT\Claim\RegisteredClaims;
 use Deatil\JWT\Contracts\ClaimsFormatter;
 

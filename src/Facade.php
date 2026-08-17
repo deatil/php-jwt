@@ -1,11 +1,10 @@
 <?php
 
-declare (strict_types = 1);
+declare(strict_types=1);
 
 namespace Deatil\JWT;
 
 use Closure;
-
 use Deatil\JWT\Contracts\Key;
 use Deatil\JWT\Contracts\Signer;
 use Deatil\JWT\Contracts\UnencryptedToken;
@@ -19,14 +18,14 @@ final class Facade
 {
     public static function sign(
         Signer $signer,
-        array  $claims,
-        Key    $signingKey,
+        array $claims,
+        Key $signingKey,
     ): UnencryptedToken {
         $builder = new Builder(
-            new JoseEncoder(), 
+            new JoseEncoder(),
             ChainedFormatter::withUnixTimestampDates()
         );
-        
+
         foreach ($claims as $key => $claim) {
             $builder->withClaim($key, $claim);
         }

@@ -15,7 +15,7 @@ jobs:
         -   name: Setup PHP
             uses: shivammathur/setup-php@v2
             with:
-                php-version: '8.1'
+                php-version: '8.2'
                 tools: squizlabs/php_codesniffer:3, friendsofphp/php-cs-fixer:3
         -   name: Composer Install
             run: composer install --classmap-authoritative --no-interaction --no-cache

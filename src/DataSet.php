@@ -11,9 +11,9 @@ use function array_key_exists;
 final class DataSet implements BaseDataSet
 {
     private array $data;
-    
+
     private string $encoded;
-    
+
     /** @param array<non-empty-string, mixed> $data */
     public function __construct(array $data, string $encoded)
     {

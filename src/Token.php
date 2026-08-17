@@ -1,11 +1,10 @@
 <?php
 
-declare (strict_types = 1);
+declare(strict_types=1);
 
 namespace Deatil\JWT;
 
 use DateTimeInterface;
-
 use Deatil\JWT\Contracts\Key;
 use Deatil\JWT\Contracts\Claim;
 use Deatil\JWT\Contracts\Signer;
@@ -25,8 +24,8 @@ final class Token implements UnencryptedToken
     private Signature $signature;
 
     public function __construct(
-        DataSet   $headers,
-        DataSet   $claims,
+        DataSet $headers,
+        DataSet $claims,
         Signature $signature
     ) {
         $this->headers   = $headers;
@@ -58,7 +57,7 @@ final class Token implements UnencryptedToken
     {
         return $this->claims->get(RegisteredClaims::AUDIENCE) === $audience;
     }
-    
+
     public function isIdentifiedBy(string $id): bool
     {
         return $this->claims->get(RegisteredClaims::ID) === $id;
