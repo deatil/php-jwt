@@ -10,7 +10,12 @@ return (new PhpCsFixer\Config())
             // Array
             'array_syntax' => ['syntax' => 'short'],
             // Function Notation
-            // 'native_function_invocation' => ['exclude' => [], 'include' => [], 'scope' => 'all', 'strict' => true],
+            'native_function_invocation' => [
+                'exclude' => ['@all'], 
+                'include' => [], 
+                'scope' => 'all', 
+                'strict' => true,
+            ],
             // Import
             'fully_qualified_strict_types' => true,
             'global_namespace_import' => ['import_constants' => false, 'import_functions' => false, 'import_classes' => false],
