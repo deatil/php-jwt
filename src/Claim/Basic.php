@@ -56,4 +56,14 @@ class Basic implements Claim
     {
         return (string) $this->value;
     }
+
+    /**
+     * __toString() magic method
+     *
+     * @return string
+     */
+    public function __toString()
+    {
+        return $this->toString();
+    }
 }

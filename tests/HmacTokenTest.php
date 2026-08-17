@@ -140,6 +140,7 @@ class HmacTokenTest extends TestCase
         $tokenStr = $token->toString();
 
         self::assertTrue(strlen($tokenStr) > 0);
+        self::assertTrue(strlen((string) $token) > 0);
 
         $token = Facade::parse($signer, $tokenStr, InMemory::hexEncoded($key));
         self::assertSame("joe", $token->claims()->get('iss'));

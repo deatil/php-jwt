@@ -1,4 +1,5 @@
 <?php
+
 declare(strict_types=1);
 
 namespace Deatil\JWT\Tests;
@@ -16,5 +17,6 @@ class SignatureTest extends TestCase
 
         self::assertSame($hash, $sig->hash());
         self::assertSame($encoded, $sig->toString());
+        self::assertSame($encoded, (string) $sig);
     }
 }

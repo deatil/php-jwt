@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace Deatil\JWT\Tests;
 
 use DateTimeImmutable;
+use PHPUnit\Framework\TestCase;
 use Deatil\JWT\Builder;
 use Deatil\JWT\Parser;
 use Deatil\JWT\Facade;
@@ -15,7 +16,6 @@ use Deatil\JWT\Signer\Ecdsa\ES512;
 use Deatil\JWT\Signer\Ecdsa\ES256K;
 use Deatil\JWT\Key\InMemory;
 use Deatil\JWT\Exception\InvalidKeyProvided;
-use PHPUnit\Framework\TestCase;
 
 use const PHP_EOL;
 

@@ -43,4 +43,14 @@ final class DataSet implements BaseDataSet
     {
         return $this->encoded;
     }
+
+    /**
+     * __toString() magic method
+     *
+     * @return string
+     */
+    public function __toString()
+    {
+        return $this->toString();
+    }
 }

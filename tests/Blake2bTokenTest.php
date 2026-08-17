@@ -6,6 +6,7 @@ namespace Deatil\JWT\Tests;
 
 use SodiumException;
 use DateTimeImmutable;
+use PHPUnit\Framework\TestCase;
 use Deatil\JWT\Builder;
 use Deatil\JWT\Parser;
 use Deatil\JWT\Facade;
@@ -13,7 +14,6 @@ use Deatil\JWT\Validator;
 use Deatil\JWT\Signer\BLAKE2B;
 use Deatil\JWT\Key\InMemory;
 use Deatil\JWT\Exception\InvalidKeyProvided;
-use PHPUnit\Framework\TestCase;
 
 class Blake2bTokenTest extends TestCase
 {

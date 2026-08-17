@@ -7,7 +7,7 @@ namespace Deatil\JWT;
 use DateTimeImmutable;
 use InvalidArgumentException;
 use Deatil\JWT\Contracts\Decoder;
-use Deatil\JWT\Contracts\UnencryptedToken;
+use Deatil\JWT\Contracts\PayloadToken;
 use Deatil\JWT\Encoding\JoseEncoder;
 use Deatil\JWT\Claim\RegisteredClaims;
 use Deatil\JWT\Claim\RegisteredHeaders;
@@ -48,9 +48,9 @@ final class Parser
      *
      * @param string $jwt
      *
-     * @return UnencryptedToken
+     * @return PayloadToken
      */
-    public function parse(string $jwt): UnencryptedToken
+    public function parse(string $jwt): PayloadToken
     {
         [$encodedHeaders, $encodedClaims, $encodedSignature] = $this->splitJwt($jwt);
 

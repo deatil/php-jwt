@@ -1,10 +1,11 @@
 <?php
+
 declare(strict_types=1);
 
 namespace Deatil\JWT\Tests;
 
-use PHPUnit\Framework\TestCase;
 use DateTimeImmutable;
+use PHPUnit\Framework\TestCase;
 use Deatil\JWT\Builder;
 use Deatil\JWT\Parser;
 use Deatil\JWT\Facade;

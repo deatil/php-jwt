@@ -9,7 +9,7 @@ use Deatil\JWT\Contracts\Key;
 use Deatil\JWT\Contracts\Signer;
 use Deatil\JWT\Contracts\Validatable;
 use Deatil\JWT\Contracts\ValidationData;
-use Deatil\JWT\Contracts\UnencryptedToken;
+use Deatil\JWT\Contracts\PayloadToken;
 use Deatil\JWT\Claim\RegisteredHeaders;
 use Deatil\JWT\Claim\Factory as ClaimFactory;
 
@@ -23,7 +23,7 @@ final class Validator
         $this->claimFactory = $claimFactory ?: new ClaimFactory();
     }
 
-    public function verify(UnencryptedToken $token, Signer $signer, Key $key): bool
+    public function verify(PayloadToken $token, Signer $signer, Key $key): bool
     {
         if ($token->headers()->get(RegisteredHeaders::ALGORITHM) !== $signer->getAlgorithmId()) {
             return false;
@@ -35,7 +35,7 @@ final class Validator
         return $signer->verify($hash, $payload, $key);
     }
 
-    public function validate(UnencryptedToken $token, ValidationData $data): bool
+    public function validate(PayloadToken $token, ValidationData $data): bool
     {
         foreach ($this->getValidatableClaims($token) as $claim) {
             if (! $claim->validate($data)) {
@@ -46,7 +46,7 @@ final class Validator
         return true;
     }
 
-    private function getValidatableClaims(UnencryptedToken $token): Generator
+    private function getValidatableClaims(PayloadToken $token): Generator
     {
         foreach ($token->claims()->all() as $name => $value) {
             $claim = $this->claimFactory->create($name, $value);

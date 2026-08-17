@@ -52,4 +52,14 @@ final class Signature implements BaseSignature
     {
         return $this->encoded;
     }
+
+    /**
+     * __toString() magic method
+     *
+     * @return string
+     */
+    public function __toString()
+    {
+        return $this->toString();
+    }
 }

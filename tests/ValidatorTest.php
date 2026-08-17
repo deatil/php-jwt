@@ -5,11 +5,11 @@ declare(strict_types=1);
 namespace Deatil\JWT\Tests;
 
 use DateTimeImmutable;
+use PHPUnit\Framework\TestCase;
 use Deatil\JWT\Parser;
 use Deatil\JWT\Validator;
 use Deatil\JWT\ValidationData;
 use Deatil\JWT\Key\InMemory;
-use PHPUnit\Framework\TestCase;
 
 class ValidatorTest extends TestCase
 {

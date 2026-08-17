@@ -9,7 +9,7 @@ use Deatil\JWT\Contracts\Key;
 use Deatil\JWT\Contracts\Signer;
 use Deatil\JWT\Contracts\Encoder;
 use Deatil\JWT\Contracts\ClaimsFormatter;
-use Deatil\JWT\Contracts\UnencryptedToken;
+use Deatil\JWT\Contracts\PayloadToken;
 use Deatil\JWT\Encoding\JoseEncoder;
 use Deatil\JWT\Claim\RegisteredClaims;
 use Deatil\JWT\Claim\RegisteredHeaders;
@@ -210,9 +210,9 @@ final class Builder
     /**
      * Returns the resultant token
      *
-     * @return UnencryptedToken
+     * @return PayloadToken
      */
-    public function getToken(Signer $signer, Key $key): UnencryptedToken
+    public function getToken(Signer $signer, Key $key): PayloadToken
     {
         $signer->modifyHeader($this->headers);
 

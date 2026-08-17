@@ -11,11 +11,11 @@ use Deatil\JWT\Contracts\Signer;
 use Deatil\JWT\Contracts\DataSet;
 use Deatil\JWT\Contracts\Signature;
 use Deatil\JWT\Contracts\Validatable;
-use Deatil\JWT\Contracts\UnencryptedToken;
+use Deatil\JWT\Contracts\PayloadToken;
 use Deatil\JWT\Claim\RegisteredClaims;
 use Deatil\JWT\Claim\RegisteredHeaders;
 
-final class Token implements UnencryptedToken
+final class Token implements PayloadToken
 {
     private DataSet $headers;
 
@@ -97,5 +97,15 @@ final class Token implements UnencryptedToken
         return $this->headers->toString() . '.'
              . $this->claims->toString() . '.'
              . $this->signature->toString();
+    }
+
+    /**
+     * __toString() magic method
+     *
+     * @return string
+     */
+    public function __toString()
+    {
+        return $this->toString();
     }
 }

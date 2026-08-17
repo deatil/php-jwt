@@ -7,7 +7,7 @@ namespace Deatil\JWT;
 use Closure;
 use Deatil\JWT\Contracts\Key;
 use Deatil\JWT\Contracts\Signer;
-use Deatil\JWT\Contracts\UnencryptedToken;
+use Deatil\JWT\Contracts\PayloadToken;
 use Deatil\JWT\Encoding\JoseEncoder;
 use Deatil\JWT\Format\ChainedFormatter;
 use Deatil\JWT\Exception\InvalidTokenStructure;
@@ -20,7 +20,7 @@ final class Facade
         Signer $signer,
         array $claims,
         Key $signingKey,
-    ): UnencryptedToken {
+    ): PayloadToken {
         $builder = new Builder(
             new JoseEncoder(),
             ChainedFormatter::withUnixTimestampDates()
@@ -37,7 +37,7 @@ final class Facade
         Signer $signer,
         string $tokenString,
         Key $key,
-    ): UnencryptedToken {
+    ): PayloadToken {
         $token = (new Parser())->parse($tokenString);
 
         $validation = new Validator();

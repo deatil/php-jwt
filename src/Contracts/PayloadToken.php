@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace Deatil\JWT\Contracts;
 
-interface UnencryptedToken extends Token
+interface PayloadToken extends Token
 {
     /**
      * Returns the token claims
