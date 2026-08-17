@@ -1,0 +1,29 @@
+<?php
+
+declare (strict_types = 1);
+
+namespace Deatil\JWT\Signer\Hmac;
+
+use Deatil\JWT\Signer\Hmac;
+
+/**
+ * Signer for HMAC SHA-256
+ */
+final class HS256 extends Hmac
+{
+    /**
+     * {@inheritdoc}
+     */
+    public function getAlgorithmId(): string
+    {
+        return 'HS256';
+    }
+
+    /**
+     * {@inheritdoc}
+     */
+    public function getAlgorithm(): string
+    {
+        return 'sha256';
+    }
+}
