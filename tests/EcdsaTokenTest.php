@@ -350,5 +350,4 @@ tHe7N+sULV2Eth6AxEXQfd+E4nuceR21UNCvQKqxiYwCzVwIKcHe/A==
         $token = Facade::parse($signer, $tokenStr, InMemory::plainText($pubkey));
         self::assertSame('bar', $token->claims()->get('foo'));
     }
-
 }
