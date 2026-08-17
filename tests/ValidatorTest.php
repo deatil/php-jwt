@@ -1,15 +1,15 @@
 <?php
+
 declare(strict_types=1);
 
 namespace Deatil\JWT\Tests;
-
-use PHPUnit\Framework\TestCase;
 
 use DateTimeImmutable;
 use Deatil\JWT\Parser;
 use Deatil\JWT\Validator;
 use Deatil\JWT\ValidationData;
 use Deatil\JWT\Key\InMemory;
+use PHPUnit\Framework\TestCase;
 
 class ValidatorTest extends TestCase
 {
@@ -21,7 +21,7 @@ class ValidatorTest extends TestCase
 
         $now = new DateTimeImmutable();
 
-        $data = new ValidationData($now->setTimestamp(1767812388)); 
+        $data = new ValidationData($now->setTimestamp(1767812388));
         $data->identifiedBy('jti rrr');
         $data->issuedBy('iss');
         $data->permittedFor('example.com');
@@ -29,9 +29,9 @@ class ValidatorTest extends TestCase
 
         $validation = new Validator();
 
-        self::assertTrue($validation->validate($token, $data)); 
+        self::assertTrue($validation->validate($token, $data));
     }
-    
+
     public function testCheck2(): void
     {
         $data = "eyJ0eXAiOiJKV0UiLCJhbGciOiJFUzI1NiIsImtpZCI6ImtpZHMifQ.eyJpc3MiOiJpc3MiLCJpYXQiOjE1Njc4NDIzODgsImV4cCI6MTc2Nzg0MjM4OCwiYXVkIjoiZXhhbXBsZS5jb20iLCJzdWIiOiJzdWIiLCJqdGkiOiJqdGkgcnJyIiwibmJmIjoxNTY3ODQyMzg4fQ.dGVzdC1zaWduYXR1cmU";
@@ -40,7 +40,7 @@ class ValidatorTest extends TestCase
 
         $now = new DateTimeImmutable();
 
-        $data = new ValidationData($now->setTimestamp(1767812388)); 
+        $data = new ValidationData($now->setTimestamp(1767812388));
         $data->identifiedBy('jti rrr');
         $data->issuedBy('iss');
         $data->permittedFor('example.com');
@@ -49,9 +49,9 @@ class ValidatorTest extends TestCase
 
         $validation = new Validator();
 
-        self::assertFalse($validation->validate($token, $data)); 
+        self::assertFalse($validation->validate($token, $data));
     }
-    
+
     public function testCheck3(): void
     {
         $data = "eyJ0eXAiOiJKV0UiLCJhbGciOiJFUzI1NiIsImtpZCI6ImtpZHMifQ.eyJpc3MiOiJpc3MiLCJpYXQiOjE1Njc4NDIzODgsImV4cCI6MTc2Nzg0MjM4OCwiYXVkIjoiZXhhbXBsZS5jb20iLCJzdWIiOiJzdWIiLCJqdGkiOiJqdGkgcnJyIiwibmJmIjoxNTY3ODQyMzg4fQ.dGVzdC1zaWduYXR1cmU";
@@ -60,7 +60,7 @@ class ValidatorTest extends TestCase
 
         $now = new DateTimeImmutable();
 
-        $data = new ValidationData($now->setTimestamp(1767842409), 20); 
+        $data = new ValidationData($now->setTimestamp(1767842409), 20);
         $data->identifiedBy('jti rrr');
         $data->issuedBy('iss');
         $data->permittedFor('example.com');
@@ -68,9 +68,9 @@ class ValidatorTest extends TestCase
 
         $validation = new Validator();
 
-        self::assertFalse($validation->validate($token, $data)); 
+        self::assertFalse($validation->validate($token, $data));
     }
-    
+
     public function testCheck31(): void
     {
         $data = "eyJ0eXAiOiJKV0UiLCJhbGciOiJFUzI1NiIsImtpZCI6ImtpZHMifQ.eyJpc3MiOiJpc3MiLCJpYXQiOjE1Njc4NDIzODgsImV4cCI6MTc2Nzg0MjM4OCwiYXVkIjoiZXhhbXBsZS5jb20iLCJzdWIiOiJzdWIiLCJqdGkiOiJqdGkgcnJyIiwibmJmIjoxNTY3ODQyMzg4fQ.dGVzdC1zaWduYXR1cmU";
@@ -79,7 +79,7 @@ class ValidatorTest extends TestCase
 
         $now = new DateTimeImmutable();
 
-        $data = new ValidationData($now->setTimestamp(1767842409)); 
+        $data = new ValidationData($now->setTimestamp(1767842409));
         $data->identifiedBy('jti rrr');
         $data->issuedBy('iss');
         $data->permittedFor('example.com');
@@ -88,7 +88,6 @@ class ValidatorTest extends TestCase
 
         $validation = new Validator();
 
-        self::assertFalse($validation->validate($token, $data)); 
+        self::assertFalse($validation->validate($token, $data));
     }
-    
 }

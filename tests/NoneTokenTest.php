@@ -4,7 +4,6 @@ declare(strict_types=1);
 namespace Deatil\JWT\Tests;
 
 use PHPUnit\Framework\TestCase;
-
 use DateTimeImmutable;
 use Deatil\JWT\Builder;
 use Deatil\JWT\Parser;
@@ -42,7 +41,7 @@ class NoneTokenTest extends TestCase
             $token->claims()->get("aud"),
         );
     }
-    
+
     public function testNoneCheck(): void
     {
         $signer = new None();
@@ -58,7 +57,7 @@ class NoneTokenTest extends TestCase
         $verify = $validation->verify($token, $signer, $key);
         self::assertTrue($verify);
     }
-    
+
     public function testNoneCheck2(): void
     {
         $signer = new None();
@@ -79,5 +78,4 @@ class NoneTokenTest extends TestCase
         $token = Facade::parse($signer, $tokenStr, InMemory::hexEncoded($key));
         self::assertSame("joe", $token->claims()->get('iss'));
     }
-
 }

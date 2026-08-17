@@ -4,7 +4,6 @@ declare(strict_types=1);
 namespace Deatil\JWT\Tests;
 
 use PHPUnit\Framework\TestCase;
-
 use Deatil\JWT\Key\InMemory;
 use Deatil\JWT\Key\LocalFileReference;
 
@@ -17,7 +16,7 @@ class InMemoryTest extends TestCase
         self::assertSame("", $key->getContent());
         self::assertSame("", $key->getPassphrase());
     }
-    
+
     public function testPlainText(): void
     {
         $key = InMemory::plainText("text", "pass");
@@ -25,7 +24,7 @@ class InMemoryTest extends TestCase
         self::assertSame("text", $key->getContent());
         self::assertSame("pass", $key->getPassphrase());
     }
-    
+
     public function testBase64Encoded(): void
     {
         $key = InMemory::base64Encoded("YmFzZTY0IHRlc3Q=", "pass");
@@ -33,7 +32,7 @@ class InMemoryTest extends TestCase
         self::assertSame("base64 test", $key->getContent());
         self::assertSame("pass", $key->getPassphrase());
     }
-    
+
     public function testHexEncoded(): void
     {
         $key = InMemory::hexEncoded("6865782074657374", "pass");
@@ -41,7 +40,7 @@ class InMemoryTest extends TestCase
         self::assertSame("hex test", $key->getContent());
         self::assertSame("pass", $key->getPassphrase());
     }
-    
+
     public function testFile(): void
     {
         $key = InMemory::file(__DIR__ . '/_keys/ecdsa/private.key', "pass");
@@ -67,5 +66,4 @@ U+GeRqC7zN0aTnTQajarUylKJ3UWr/r1kg==
         self::assertSame($prikey, $key->getContent());
         self::assertSame("pass", $key->getPassphrase());
     }
-
 }

@@ -1,9 +1,8 @@
 <?php
+
 declare(strict_types=1);
 
 namespace Deatil\JWT\Tests;
-
-use PHPUnit\Framework\TestCase;
 
 use SodiumException;
 use DateTimeImmutable;
@@ -14,6 +13,7 @@ use Deatil\JWT\Validator;
 use Deatil\JWT\Signer\BLAKE2B;
 use Deatil\JWT\Key\InMemory;
 use Deatil\JWT\Exception\InvalidKeyProvided;
+use PHPUnit\Framework\TestCase;
 
 class Blake2bTokenTest extends TestCase
 {
@@ -140,5 +140,4 @@ TUKzrgcd7NvlA41Y4xKcOqEA
         $token = Facade::parse($signer, $tokenStr, InMemory::hexEncoded($key));
         self::assertSame("joe", $token->claims()->get('iss'));
     }
-
 }

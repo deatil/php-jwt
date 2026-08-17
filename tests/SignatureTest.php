@@ -4,7 +4,6 @@ declare(strict_types=1);
 namespace Deatil\JWT\Tests;
 
 use PHPUnit\Framework\TestCase;
-
 use Deatil\JWT\Signature;
 
 class SignatureTest extends TestCase
@@ -18,5 +17,4 @@ class SignatureTest extends TestCase
         self::assertSame($hash, $sig->hash());
         self::assertSame($encoded, $sig->toString());
     }
-
 }

@@ -1,10 +1,10 @@
 <?php
+
 declare(strict_types=1);
 
 namespace Deatil\JWT\Tests;
 
 use PHPUnit\Framework\TestCase;
-
 use DateTimeImmutable;
 use Deatil\JWT\Builder;
 use Deatil\JWT\Parser;
@@ -22,7 +22,7 @@ class EddsaTokenTest extends TestCase
         $now    = new DateTimeImmutable();
         $signer = new EdDSA();
         $key    = InMemory::plainText('testing');
-        
+
         $builder = (new Builder())
             ->identifiedBy('1')
             ->issuedAt($now)
@@ -62,7 +62,7 @@ class EddsaTokenTest extends TestCase
             $token->claims()->get("aud"),
         );
     }
-    
+
     public function testEddsaCheck(): void
     {
         $signer = new EdDSA();
@@ -83,7 +83,7 @@ class EddsaTokenTest extends TestCase
         $verify = $validation->verify($token, $signer, $key);
         self::assertTrue($verify);
     }
-    
+
     public function testEddsaCheck2(): void
     {
         $signer = new EdDSA();
@@ -116,5 +116,4 @@ class EddsaTokenTest extends TestCase
         $token = Facade::parse($signer, $tokenStr, InMemory::hexEncoded($pubkey));
         self::assertSame("bar", $token->claims()->get('foo'));
     }
-
 }

@@ -1,10 +1,10 @@
 <?php
+
 declare(strict_types=1);
 
 namespace Deatil\JWT\Tests;
 
 use PHPUnit\Framework\TestCase;
-
 use DateTimeImmutable;
 use Deatil\JWT\Builder;
 use Deatil\JWT\Parser;
@@ -23,7 +23,7 @@ class RsaTokenTest extends TestCase
         $now    = new DateTimeImmutable();
         $signer = new RS256();
         $key    = InMemory::plainText('testing');
-        
+
         $builder = (new Builder())
             ->identifiedBy('1')
             ->issuedAt($now)
@@ -89,7 +89,7 @@ CKuHRG+AP579dncdUnOMvfXOtkdM4vk0+hWASBQzM9xzVcztCa+koAugjVaLS9A+
             $token->claims()->get("aud"),
         );
     }
-    
+
     public function testParserAndVerifyToken(): void
     {
         $signer = new RS256();
@@ -398,5 +398,4 @@ LdYKtznTuy7wIDAQAB
         $token = Facade::parse($signer, $tokenStr, InMemory::plainText($pubkey));
         self::assertSame("bar", $token->claims()->get('foo'));
     }
-
 }
