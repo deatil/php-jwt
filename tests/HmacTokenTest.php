@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace Deatil\JWT\Tests;
 
 use DateTimeImmutable;
+use PHPUnit\Framework\TestCase;
 use Deatil\JWT\Builder;
 use Deatil\JWT\Parser;
 use Deatil\JWT\Facade;
@@ -13,7 +14,6 @@ use Deatil\JWT\Signer\Hmac\HS256;
 use Deatil\JWT\Signer\Hmac\HS384;
 use Deatil\JWT\Signer\Hmac\HS512;
 use Deatil\JWT\Key\InMemory;
-use PHPUnit\Framework\TestCase;
 
 class HmacTokenTest extends TestCase
 {
