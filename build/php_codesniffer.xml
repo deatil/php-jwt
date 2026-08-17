@@ -1,7 +1,7 @@
 <?xml version="1.0"?>
 <ruleset name="src">
-    <file>../build/php-cs-fixer.php</file>
     <file>../src/</file>
+    <file>../tests/</file>
 
     <arg name="extensions" value="php"/>
     <arg name="basepath" value=".."/>
