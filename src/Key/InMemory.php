@@ -7,8 +7,8 @@ namespace Deatil\JWT\Key;
 use Throwable;
 use SplFileObject;
 use Deatil\JWT\Contracts\Key;
-use Deatil\JWT\Exception\FileCouldNotBeRead;
 use Deatil\JWT\Exception\CannotDecodeContent;
+use Deatil\JWT\Exception\FileCouldNotBeRead;
 
 final class InMemory implements Key
 {
