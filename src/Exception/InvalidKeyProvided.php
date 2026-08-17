@@ -6,7 +6,8 @@ namespace Deatil\JWT\Exception;
 
 use InvalidArgumentException;
 
-final class InvalidKeyProvided extends InvalidArgumentException implements Exception {
+final class InvalidKeyProvided extends InvalidArgumentException implements Exception
+{
     public static function creatingSignatureError(string $details): self
     {
         return new self('There was an error while creating the signature: ' . $details);

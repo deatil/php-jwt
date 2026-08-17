@@ -6,7 +6,6 @@ namespace Deatil\JWT\Clock;
 
 use DateTimeZone;
 use DateTimeImmutable;
-
 use Deatil\JWT\Contracts\Clock;
 
 use function date_default_timezone_get;

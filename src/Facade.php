@@ -36,7 +36,7 @@ final class Facade
     public static function parse(
         Signer $signer,
         string $tokenString,
-        Key    $key,
+        Key $key,
     ): UnencryptedToken {
         $token = (new Parser())->parse($tokenString);
 

@@ -7,7 +7,8 @@ namespace Deatil\JWT\Exception;
 use Throwable;
 use InvalidArgumentException;
 
-final class FileCouldNotBeRead extends InvalidArgumentException implements Exception {
+final class FileCouldNotBeRead extends InvalidArgumentException implements Exception
+{
     public static function onPath(string $path, ?Throwable $cause = null): self
     {
         return new self(
