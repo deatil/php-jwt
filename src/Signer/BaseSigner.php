@@ -29,7 +29,7 @@ abstract class BaseSigner implements Signer
      */
     public function sign(string $payload, Key $key): string
     {
-        return $this->createHash($payload, $key);
+        return $this->createSignature($payload, $key);
     }
 
     /**
@@ -37,7 +37,7 @@ abstract class BaseSigner implements Signer
      */
     public function verify(string $expected, string $payload, Key $key): bool
     {
-        return $this->doVerify($expected, $payload, $key);
+        return $this->verifySignature($expected, $payload, $key);
     }
 
     /**
@@ -50,7 +50,7 @@ abstract class BaseSigner implements Signer
      *
      * @return string
      */
-    abstract public function createHash(string $payload, Key $key): string;
+    abstract public function createSignature(string $payload, Key $key): string;
 
     /**
      * Performs the signature verification
@@ -63,5 +63,5 @@ abstract class BaseSigner implements Signer
      *
      * @return boolean
      */
-    abstract public function doVerify(string $expected, string $payload, Key $key): bool;
+    abstract public function verifySignature(string $expected, string $payload, Key $key): bool;
 }

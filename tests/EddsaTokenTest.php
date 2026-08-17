@@ -10,8 +10,8 @@ use Deatil\JWT\Builder;
 use Deatil\JWT\Parser;
 use Deatil\JWT\Facade;
 use Deatil\JWT\Validator;
-use Deatil\JWT\Signer\Eddsa;
-use Deatil\JWT\Signer\Ed25519;
+use Deatil\JWT\Signer\EdDSA;
+use Deatil\JWT\Signer\ED25519;
 use Deatil\JWT\Key\InMemory;
 use Deatil\JWT\Exception\InvalidKeyProvided;
 
@@ -20,7 +20,7 @@ class EddsaTokenTest extends TestCase
     public function testBuilderShouldRaiseExceptionWhenKeyIsInvalid(): void
     {
         $now    = new DateTimeImmutable();
-        $signer = new Eddsa();
+        $signer = new EdDSA();
         $key    = InMemory::plainText('testing');
         
         $builder = (new Builder())
@@ -41,7 +41,7 @@ class EddsaTokenTest extends TestCase
         $user = ['name' => 'testing', 'email' => 'testing@abc.com'];
 
         $now    = new DateTimeImmutable();
-        $signer = new Eddsa();
+        $signer = new EdDSA();
         $key    = InMemory::base64Encoded('K3NWT0XqaH+4jgi42gQmHnFE+HTPVhFYi3u4DFJ3OpRHRMt/aGRBoKD/Pt5H/iYgGCla7Q04CdjOUpLSrjZhtg==');
 
         $token = (new Builder())->identifiedBy('1')
@@ -65,7 +65,7 @@ class EddsaTokenTest extends TestCase
     
     public function testEddsaCheck(): void
     {
-        $signer = new Eddsa();
+        $signer = new EdDSA();
         $key    = InMemory::base64Encoded('R0TLf2hkQaCg/z7eR/4mIBgpWu0NOAnYzlKS0q42YbY=');
 
         $data = 'eyJ0eXAiOiJKV1QiLCJhbGciOiJFZERTQSIsImpraSI6IjEyMzQifQ.eyJqdGkiOiIxIiwiYXVkIjp'
@@ -86,7 +86,7 @@ class EddsaTokenTest extends TestCase
     
     public function testEddsaCheck2(): void
     {
-        $signer = new Eddsa();
+        $signer = new EdDSA();
         $prikey = "414c119ae6958c5ccd7285c4894dbcd191e4942f0e14e42e8bc9631c10777b9a587ef3ea1a58aaf3e7b368b89fdcb29b0bc1dc03e18b82f243b887393e9caed1";
         $pubkey = "587ef3ea1a58aaf3e7b368b89fdcb29b0bc1dc03e18b82f243b887393e9caed1";
 
@@ -108,7 +108,7 @@ class EddsaTokenTest extends TestCase
 
     public function testEddsaCheck3(): void
     {
-        $signer = new Ed25519();
+        $signer = new ED25519();
         $pubkey = "587ef3ea1a58aaf3e7b368b89fdcb29b0bc1dc03e18b82f243b887393e9caed1";
 
         $tokenStr = "eyJhbGciOiJFRDI1NTE5IiwidHlwIjoiSldUIn0.eyJmb28iOiJiYXIifQ.ESuVzZq1cECrt9Od_gLPVG-_6uRP_8Nq-ajx6CtmlDqRJZqdejro2ilkqaQgSL-siE_3JMTUW7UwAorLaTyFCw";

@@ -2,7 +2,7 @@
 
 declare (strict_types = 1);
 
-namespace Deatil\JWT\Signer\Ecdsa;
+namespace Deatil\JWT\Contracts;
 
 interface SignatureConverter
 {

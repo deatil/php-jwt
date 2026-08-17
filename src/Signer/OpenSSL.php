@@ -20,7 +20,7 @@ use function openssl_verify;
 
 abstract class OpenSSL extends BaseSigner
 {
-    public function createHash(string $payload, Key $key): string
+    public function createSignature(string $payload, Key $key): string
     {
         $privateKey = $this->getPrivateKey($key->getContent(), $key->getPassphrase());
 
@@ -53,7 +53,7 @@ abstract class OpenSSL extends BaseSigner
      * @param Key    $key
      * @return bool
      */
-    public function doVerify(string $expected, string $payload, Key $key): bool
+    public function verifySignature(string $expected, string $payload, Key $key): bool
     {
         $publicKey = $this->getPublicKey($key->getContent());
         $result    = openssl_verify($payload, $expected, $publicKey, $this->getAlgorithm());

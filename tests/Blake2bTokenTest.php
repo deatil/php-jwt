@@ -11,7 +11,7 @@ use Deatil\JWT\Builder;
 use Deatil\JWT\Parser;
 use Deatil\JWT\Facade;
 use Deatil\JWT\Validator;
-use Deatil\JWT\Signer\Blake2b;
+use Deatil\JWT\Signer\BLAKE2B;
 use Deatil\JWT\Key\InMemory;
 use Deatil\JWT\Exception\InvalidKeyProvided;
 
@@ -19,7 +19,7 @@ class Blake2bTokenTest extends TestCase
 {
     public function testBuilderShouldRaiseExceptionWhenKeyIsInvalid(): void
     {
-        $signer = new Blake2b();
+        $signer = new BLAKE2B();
         $key    = InMemory::plainText('testing');
 
         $builder = (new Builder())
@@ -36,7 +36,7 @@ class Blake2bTokenTest extends TestCase
 
     public function testBuilderShouldRaiseExceptionWhenKeyIsNotEcdsaCompatible(): void
     {
-        $signer = new Blake2b();
+        $signer = new BLAKE2B();
         $key    = "-----BEGIN PRIVATE KEY-----
 MIIEvgIBADANBgkqhkiG9w0BAQEFAASCBKgwggSkAgEAAoIBAQDTvwE87MtgREYL
 TL4aHhQo3ZzogmxxvMUsKnPzyxRs1YrXOSOpwN0npsXarBKKVIUMNLfFODp/vnQn
@@ -83,7 +83,7 @@ TUKzrgcd7NvlA41Y4xKcOqEA
         $user = ['name' => 'testing', 'email' => 'testing@abc.com'];
 
         $now    = new DateTimeImmutable();
-        $signer = new Blake2b();
+        $signer = new BLAKE2B();
         $key    = "0323354b2b0fa5bc837e0665777ba68f5ab328e6f054c928a90f84b2d2502ebfd3fb5a92d20647ef968ab4c377623d223d2e2172052e4f08c0cd9af567d080a3";
 
         $token = (new Builder())->identifiedBy('1')
@@ -110,7 +110,7 @@ TUKzrgcd7NvlA41Y4xKcOqEA
         $data = "eyJ0eXAiOiJKV1QiLCJhbGciOiJCTEFLRTJCIn0.eyJpc3MiOiJqb2UiLCJleHAiOjEzMDA4MTkzODAsImh0dHA6Ly9leGFtcGxlLmNvbS9pc19yb290Ijp0cnVlfQ.zVtM3_PWCeOBjiV3bJcx1KoxeZCUs7zqfy6DF2mfb9M";
         $key  = "0323354b2b0fa5bc837e0665777ba68f5ab328e6f054c928a90f84b2d2502ebfd3fb5a92d20647ef968ab4c377623d223d2e2172052e4f08c0cd9af567d080a3";
 
-        $signer = new Blake2b();
+        $signer = new BLAKE2B();
 
         $token = (new Parser())->parse((string) $data);
         self::assertSame('joe', $token->claims()->get('iss'));
@@ -122,7 +122,7 @@ TUKzrgcd7NvlA41Y4xKcOqEA
 
     public function testBlake2bCheck2(): void
     {
-        $signer = new Blake2b();
+        $signer = new BLAKE2B();
         $key    = "0323354b2b0fa5bc837e0665777ba68f5ab328e6f054c928a90f84b2d2502ebfd3fb5a92d20647ef968ab4c377623d223d2e2172052e4f08c0cd9af567d080a3";
 
         $t      = new DateTimeImmutable();

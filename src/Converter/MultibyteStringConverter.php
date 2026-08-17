@@ -2,9 +2,11 @@
 
 declare (strict_types = 1);
 
-namespace Deatil\JWT\Signer\Ecdsa;
+namespace Deatil\JWT\Converter;
 
 use InvalidArgumentException;
+
+use Deatil\JWT\Contracts\SignatureConverter;
 
 use function bin2hex;
 use function dechex;

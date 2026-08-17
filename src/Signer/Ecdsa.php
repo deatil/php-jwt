@@ -5,8 +5,8 @@ declare (strict_types = 1);
 namespace Deatil\JWT\Signer;
 
 use Deatil\JWT\Contracts\Key;
-use Deatil\JWT\Signer\Ecdsa\MultibyteStringConverter;
-use Deatil\JWT\Signer\Ecdsa\SignatureConverter;
+use Deatil\JWT\Contracts\SignatureConverter;
+use Deatil\JWT\Converter\MultibyteStringConverter;
 
 use const OPENSSL_KEYTYPE_EC;
 
@@ -29,10 +29,10 @@ abstract class Ecdsa extends OpenSSL
     /**
      * {@inheritdoc}
      */
-    public function createHash(string $payload, Key $key): string
+    public function createSignature(string $payload, Key $key): string
     {
         return $this->converter->fromAsn1(
-            parent::createHash($payload, $key),
+            parent::createSignature($payload, $key),
             $this->getKeyLength()
         );
     }
@@ -40,9 +40,9 @@ abstract class Ecdsa extends OpenSSL
     /**
      * {@inheritdoc}
      */
-    public function doVerify(string $expected, string $payload, Key $key): bool
+    public function verifySignature(string $expected, string $payload, Key $key): bool
     {
-        return parent::doVerify(
+        return parent::verifySignature(
             $this->converter->toAsn1($expected, $this->getKeyLength()),
             $payload,
             $key

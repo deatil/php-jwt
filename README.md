@@ -128,8 +128,8 @@ The JWT library have signers:
  - `ES512`: Deatil\JWT\Signer\Ecdsa\ES512
  - `ES256K`: Deatil\JWT\Signer\Ecdsa\ES256K
  
- - `EdDSA`: Deatil\JWT\Signer\Eddsa
- - `ED25519`: Deatil\JWT\Signer\Ed25519
+ - `EdDSA`: Deatil\JWT\Signer\EdDSA
+ - `ED25519`: Deatil\JWT\Signer\ED25519
 
  - `RS256`: Deatil\JWT\Signer\Rsa\RS256
  - `RS384`: Deatil\JWT\Signer\Rsa\RS384
@@ -139,7 +139,7 @@ The JWT library have signers:
  - `HS384`: Deatil\JWT\Signer\Hmac\HS384
  - `HS512`: Deatil\JWT\Signer\Hmac\HS512
 
- - `BLAKE2B`: Deatil\JWT\Signer\Blake2b
+ - `BLAKE2B`: Deatil\JWT\Signer\BLAKE2B
 
  - `none`: Deatil\JWT\Signer\None
 

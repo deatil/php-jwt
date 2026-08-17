@@ -16,12 +16,12 @@ final class None extends BaseSigner
         return 'none';
     }
 
-    public function createHash(string $payload, Key $key): string
+    public function createSignature(string $payload, Key $key): string
     {
         return "";
     }
 
-    public function doVerify(string $expected, string $payload, Key $key): bool
+    public function verifySignature(string $expected, string $payload, Key $key): bool
     {
         return $expected === '';
     }

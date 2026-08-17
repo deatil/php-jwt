@@ -12,9 +12,9 @@ use function hash_equals;
 use function sodium_crypto_generichash;
 
 /**
- * Blake2b signers
+ * BLAKE2B signers
  */
-final class Blake2b extends BaseSigner
+final class BLAKE2B extends BaseSigner
 {
     private const MINIMUM_KEY_LENGTH_IN_BITS = 256;
 
@@ -23,7 +23,7 @@ final class Blake2b extends BaseSigner
         return 'BLAKE2B';
     }
 
-    public function createHash(string $payload, Key $key): string
+    public function createSignature(string $payload, Key $key): string
     {
         $actualKeyLength = 8 * strlen($key->getContent());
 
@@ -34,8 +34,8 @@ final class Blake2b extends BaseSigner
         return sodium_crypto_generichash($payload, $key->getContent());
     }
 
-    public function doVerify(string $expected, string $payload, Key $key): bool
+    public function verifySignature(string $expected, string $payload, Key $key): bool
     {
-        return hash_equals($expected, $this->createHash($payload, $key));
+        return hash_equals($expected, $this->createSignature($payload, $key));
     }
 }

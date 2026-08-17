@@ -13,16 +13,16 @@ use function sodium_crypto_sign_detached;
 use function sodium_crypto_sign_verify_detached;
 
 /**
- * Ed25519 signers
+ * ED25519 signers
  */
-final class Ed25519 extends BaseSigner
+final class ED25519 extends BaseSigner
 {
     public function getAlgorithmId(): string
     {
         return 'ED25519';
     }
     
-    public function createHash(string $payload, Key $key): string
+    public function createSignature(string $payload, Key $key): string
     {
         try {
             return sodium_crypto_sign_detached($payload, $key->getContent());
@@ -31,7 +31,7 @@ final class Ed25519 extends BaseSigner
         }
     }
 
-    public function doVerify(string $expected, string $payload, Key $key): bool
+    public function verifySignature(string $expected, string $payload, Key $key): bool
     {
         try {
             return sodium_crypto_sign_verify_detached($expected, $payload, $key->getContent());
