@@ -59,7 +59,7 @@ $app->post('/login', function (Request $request, Response $response, $args) {
     return $response;
 });
 
-$auth_middlewdare = function($request, $handler) use($app) {
+$auth_middlewdare = function($request, $handler) use ($app) {
     $auth = $request->getHeaderLine('Authorization');
     if (! $auth) {
         $response = $app->getResponseFactory()->createResponse();
@@ -104,8 +104,9 @@ $app->group('', function (RouteCollectorProxy $group) {
     // > curl -X GET -H "Authorization: Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpYXQiOjE3ODY3NzM3MjIsImV4cCI6MTc4OTM2NTcyMiwiYXVkIjoiZXhhbXBsZS5jb20iLCJ1c2VyX2lkIjoiand0In0.kIy5PBMfE6muXFyHXtwSuMjLb-UA8HqWq-sIdPOXZnA" php-jwt.php1000.com.cn/user/profile
     $group->get('/user/profile', function ($request, $response, array $args) {
         $user_id = $request->getAttribute("uid");
-        
+
         $response->getBody()->write("uid: {$user_id}");
+
         return $response;
     });
 })->add($auth_middlewdare);
@@ -151,7 +152,7 @@ function parse_token($tokenStr)
 
     $now = new DateTimeImmutable();
 
-    $data = new ValidationData($now, 20); 
+    $data = new ValidationData($now, 20);
     $data->permittedFor("example.com");
 
     $validation = new Validator();

@@ -25,6 +25,7 @@ final class ValidationData implements BaseValidationData
 
     /**
      * The leeway (in seconds) to use when validating time claims
+     *
      * @var int
      */
     private int $leeway;
