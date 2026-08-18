@@ -4,7 +4,6 @@ declare(strict_types=1);
 
 namespace Deatil\JWT\Signer;
 
-use Deatil\JWT\Signer;
 use Deatil\JWT\Contracts\Key;
 use Deatil\JWT\Exception\InvalidKeyProvided;
 
@@ -48,6 +47,7 @@ abstract class OpenSSL extends BaseSigner
      * @param string $expected
      * @param string $payload
      * @param Key    $key
+     *
      * @return bool
      */
     public function verifySignature(string $expected, string $payload, Key $key): bool

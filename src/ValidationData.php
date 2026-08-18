@@ -46,7 +46,7 @@ final class ValidationData implements BaseValidationData
             RegisteredClaims::ID       => null,
             RegisteredClaims::ISSUER   => null,
             RegisteredClaims::AUDIENCE => null,
-            RegisteredClaims::SUBJECT  => null
+            RegisteredClaims::SUBJECT  => null,
         ];
 
         $this->currentTime($currentTime);

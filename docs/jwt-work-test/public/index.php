@@ -5,7 +5,6 @@ use Psr\Http\Message\ServerRequestInterface as Request;
 use Slim\Factory\AppFactory;
 use Slim\Routing\RouteCollectorProxy;
 use Slim\Factory\ServerRequestCreatorFactory;
-
 use Deatil\JWT\Facade;
 use Deatil\JWT\Signer\Hmac\HS256;
 use Deatil\JWT\Key\InMemory;
@@ -25,6 +24,7 @@ $app->addBodyParsingMiddleware();
 // > curl -X GET php-jwt.php1000.com.cn/
 $app->get('/', function (Request $request, Response $response, $args) {
     $response->getBody()->write("Hello php-jwt!");
+
     return $response;
 });
 
@@ -33,6 +33,7 @@ $app->get('/hi/{name}', function ($request, $response, array $args) {
     $name = $args['name'] ?? "";
 
     $response->getBody()->write("hi {$name}!");
+
     return $response;
 });
 
@@ -44,39 +45,41 @@ $app->post('/login', function (Request $request, Response $response, $args) {
 
     $pass = $data['pass'] ?? "";
     $name = $data['name'] ?? "";
-    
+
     if (empty($pass) || empty($name)) {
         $response->getBody()->write("pass or name empty.");
+
         return $response;
     }
 
     $tokenStr = gen_token($name);
-    
+
     $response->getBody()->write("token: {$tokenStr}");
+
     return $response;
 });
 
 $auth_middlewdare = function($request, $handler) use($app) {
     $auth = $request->getHeaderLine('Authorization');
-    if (!$auth) {
+    if (! $auth) {
         $response = $app->getResponseFactory()->createResponse();
         $response->getBody()->write('Unauthorized');
-        
+
         return $response;
     }
-    
+
     if (substr($auth, 0, 7) != "Bearer ") {
         $response = $app->getResponseFactory()->createResponse();
         $response->getBody()->write('token is required');
-        
+
         return $response;
     }
-    
+
     $token = substr($auth, 7);
     if (empty($token)) {
         $response = $app->getResponseFactory()->createResponse();
         $response->getBody()->write('token is empty');
-        
+
         return $response;
     }
 
@@ -85,10 +88,10 @@ $auth_middlewdare = function($request, $handler) use($app) {
     } catch (Exception $e) {
         $response = $app->getResponseFactory()->createResponse();
         $response->getBody()->write('token parse fail.'.$e->getMessage());
-        
+
         return $response;
     }
-    
+
     $request = $request->withAttribute("uid", $user_id);
 
     return $handler->handle($request);
@@ -109,16 +112,17 @@ $app->group('', function (RouteCollectorProxy $group) {
 
 $app->run();
 
-
-function get_key() {
+function get_key()
+{
     $key = "FkL2+V+1k2auI3xxTz/2skChDQVVjT9PW1/grXafg3M=";
 
     return $key;
 }
 
-function gen_token($name) {
+function gen_token($name)
+{
     $signer = new HS256();
-    
+
     $keyStr = get_key();
     $key    = InMemory::base64Encoded($keyStr);
 
@@ -136,24 +140,26 @@ function gen_token($name) {
     return $tokenStr;
 }
 
-function parse_token($tokenStr) {
+function parse_token($tokenStr)
+{
     $signer = new HS256();
-    
+
     $keyStr = get_key();
     $key    = InMemory::base64Encoded($keyStr);
 
     $token = Facade::parse($signer, $tokenStr, $key);
-    
+
     $now = new DateTimeImmutable();
-    
+
     $data = new ValidationData($now, 20); 
     $data->permittedFor("example.com");
-    
+
     $validation = new Validator();
-    if (!$validation->validate($token, $data)) {
+    if (! $validation->validate($token, $data)) {
         throw new Exception("token validate fail");
     }
 
     $uid = $token->claims()->get('user_id');
+
     return $uid;
 }
