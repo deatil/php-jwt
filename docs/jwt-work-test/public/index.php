@@ -31,7 +31,7 @@ $app->get('/', function (Request $request, Response $response, $args) {
 // > curl -X GET php-jwt.php1000.com.cn/hi/php-jwt
 $app->get('/hi/{name}', function ($request, $response, array $args) {
     $name = $args['name'] ?? "";
-    
+
     $response->getBody()->write("hi {$name}!");
     return $response;
 });
