@@ -28,7 +28,7 @@ final class Builder
      */
     private array $headers = [
         RegisteredHeaders::TYPE      => 'JWT',
-        RegisteredHeaders::ALGORITHM => 'none'
+        RegisteredHeaders::ALGORITHM => 'none',
     ];
 
     /**
