@@ -12,7 +12,6 @@ use Deatil\JWT\Facade;
 use Deatil\JWT\Validator;
 use Deatil\JWT\Signer\None;
 use Deatil\JWT\Key\InMemory;
-use Deatil\JWT\Exception\InvalidKeyProvided;
 
 class NoneTokenTest extends TestCase
 {
@@ -25,13 +24,13 @@ class NoneTokenTest extends TestCase
         $key    = InMemory::empty();
 
         $token = (new Builder())->identifiedBy('1')
-                         ->permittedFor('https://client.abc.com')
-                         ->permittedFor('https://client2.abc.com')
-                         ->issuedBy('https://api.abc.com')
-                         ->issuedAt($now)
-                         ->setClaim('user', $user)
-                         ->withHeader('jki', '1234')
-                         ->getToken($signer, $key);
+            ->permittedFor('https://client.abc.com')
+            ->permittedFor('https://client2.abc.com')
+            ->issuedBy('https://api.abc.com')
+            ->issuedAt($now)
+            ->setClaim('user', $user)
+            ->withHeader('jki', '1234')
+            ->getToken($signer, $key);
 
         self::assertSame('1234', $token->headers()->get('jki'));
         self::assertSame('https://api.abc.com', $token->claims()->get("iss"));

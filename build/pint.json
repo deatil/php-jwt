@@ -113,12 +113,6 @@
         "not_operator_with_successor_space": true,
         "nullable_type_declaration_for_default_null_value": true,
         "object_operator_without_whitespace": true,
-        "phpdoc_align": {
-            "align": "left",
-            "spacing": {
-                "param": 2
-            }
-        },
         "phpdoc_indent": true,
         "phpdoc_inline_tag_normalizer": true,
         "phpdoc_no_access": true,
