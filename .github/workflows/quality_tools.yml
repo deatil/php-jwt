@@ -22,4 +22,4 @@ jobs:
         -   name: PHP_CodeSniffer
             run: phpcs --standard=build/php_codesniffer.xml
         -   name: PHP Pint
-            run: pint --config=build/pint.json
+            run: pint --config=build/pint.json --test
