@@ -9,7 +9,6 @@ use PHPUnit\Framework\TestCase;
 use Deatil\JWT\Parser;
 use Deatil\JWT\Validator;
 use Deatil\JWT\ValidationData;
-use Deatil\JWT\Key\InMemory;
 
 class ValidatorTest extends TestCase
 {

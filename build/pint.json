@@ -6,9 +6,6 @@
         "array_syntax": {
             "syntax": "short"
         },
-        "binary_operator_spaces": {
-            "default": "single_space"
-        },
         "blank_line_after_namespace": true,
         "blank_line_after_opening_tag": true,
         "blank_line_before_statement": {
@@ -34,7 +31,7 @@
         "combine_consecutive_issets": true,
         "combine_consecutive_unsets": true,
         "compact_nullable_type_declaration": true,
-        "concat_space": true,
+        "concat_space": false,
         "constant_case": {
             "case": "lower"
         },
