@@ -4,6 +4,7 @@ use Psr\Http\Message\ResponseInterface as Response;
 use Psr\Http\Message\ServerRequestInterface as Request;
 use Slim\Factory\AppFactory;
 use Slim\Routing\RouteCollectorProxy;
+use Slim\Factory\ServerRequestCreatorFactory;
 
 use Deatil\JWT\Facade;
 use Deatil\JWT\Signer\Hmac\HS256;
@@ -13,7 +14,13 @@ use Deatil\JWT\ValidationData;
 
 require __DIR__ . '/../vendor/autoload.php';
 
+AppFactory::setSlimHttpDecoratorsAutomaticDetection(false);
+ServerRequestCreatorFactory::setSlimHttpDecoratorsAutomaticDetection(false);
+
 $app = AppFactory::create();
+
+$app->addRoutingMiddleware();
+$app->addBodyParsingMiddleware();
 
 // > curl -X GET php-jwt.php1000.com.cn/
 $app->get('/', function (Request $request, Response $response, $args) {
@@ -31,8 +38,9 @@ $app->get('/hi/{name}', function ($request, $response, array $args) {
 
 // > curl -X POST -H "Content-Type: application/json" -d '{"name":"jwt","pass":"123"}' php-jwt.php1000.com.cn/login
 $app->post('/login', function (Request $request, Response $response, $args) {
-    $body = $request->getBody()->getContents();
-    $data = json_decode($body, true);
+    // $body = $request->getBody()->getContents();
+    // $data = json_decode($body, true);
+    $data = $request->getParsedBody();
 
     $pass = $data['pass'] ?? "";
     $name = $data['name'] ?? "";

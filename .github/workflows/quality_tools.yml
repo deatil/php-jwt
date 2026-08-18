@@ -16,8 +16,10 @@ jobs:
             uses: shivammathur/setup-php@v2
             with:
                 php-version: '8.2'
-                tools: squizlabs/php_codesniffer:3
+                tools: squizlabs/php_codesniffer:3, pint:1
         -   name: Composer Install
             run: composer install --classmap-authoritative --no-interaction --no-cache
         -   name: PHP_CodeSniffer
             run: phpcs --standard=build/php_codesniffer.xml
+        -   name: PHP Pint
+            run: pint --config=build/pint.json
