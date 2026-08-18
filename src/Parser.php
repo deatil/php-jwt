@@ -35,7 +35,7 @@ final class Parser
     /**
      * Initializes the object
      *
-     * @param Decoder      $decoder
+     * @param Decoder $decoder
      */
     public function __construct(
         ?Decoder $decoder = null,

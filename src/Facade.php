@@ -11,8 +11,20 @@ use Deatil\JWT\Encoding\JoseEncoder;
 use Deatil\JWT\Format\ChainedFormatter;
 use Deatil\JWT\Exception\InvalidTokenStructure;
 
+/**
+ * This class have sign and parse function
+ */
 final class Facade
 {
+    /**
+     * Sign claims function
+     *
+     * @param Signer $signer
+     * @param array  $claims
+     * @param Key    $signingKey
+     *
+     * @return PayloadToken
+     */
     public static function sign(
         Signer $signer,
         array $claims,
@@ -30,6 +42,15 @@ final class Facade
         return $builder->getToken($signer, $signingKey);
     }
 
+    /**
+     * Parse token function
+     *
+     * @param Signer $signer
+     * @param string $tokenString
+     * @param Key    $key
+     *
+     * @return PayloadToken
+     */
     public static function parse(
         Signer $signer,
         string $tokenString,
