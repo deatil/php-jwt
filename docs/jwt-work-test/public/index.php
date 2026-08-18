@@ -59,7 +59,7 @@ $app->post('/login', function (Request $request, Response $response, $args) {
     return $response;
 });
 
-$auth_middlewdare = function($request, $handler) use ($app) {
+$auth_middlewdare = function ($request, $handler) use ($app) {
     $auth = $request->getHeaderLine('Authorization');
     if (! $auth) {
         $response = $app->getResponseFactory()->createResponse();
