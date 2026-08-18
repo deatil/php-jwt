@@ -26,12 +26,12 @@ class HmacTokenTest extends TestCase
         $key    = InMemory::plainText('testing');
 
         $token = (new Builder())->identifiedBy('1')
-                     ->permittedFor('https://client.abc.com')
-                     ->issuedBy('https://api.abc.com')
-                     ->issuedAt($now)
-                     ->setClaim('user', $user)
-                     ->withHeader('jki', '1234')
-                     ->getToken($signer, $key);
+            ->permittedFor('https://client.abc.com')
+            ->issuedBy('https://api.abc.com')
+            ->issuedAt($now)
+            ->setClaim('user', $user)
+            ->withHeader('jki', '1234')
+            ->getToken($signer, $key);
 
         self::assertSame('1234', $token->headers()->get('jki'));
         self::assertSame(['https://client.abc.com'], $token->claims()->get("aud"));

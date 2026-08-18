@@ -6,10 +6,7 @@ namespace Deatil\JWT\Signer;
 
 use Deatil\JWT\Contracts\Key;
 use Deatil\JWT\Contracts\Signer;
-use Deatil\JWT\Key\InMemory;
 use Deatil\JWT\Claim\RegisteredHeaders;
-
-use function is_string;
 
 /**
  * Base class for signers
@@ -61,7 +58,7 @@ abstract class BaseSigner implements Signer
      * @param string $payload
      * @param Key    $key
      *
-     * @return boolean
+     * @return bool
      */
     abstract public function verifySignature(string $expected, string $payload, Key $key): bool;
 }

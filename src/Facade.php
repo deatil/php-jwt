@@ -4,15 +4,12 @@ declare(strict_types=1);
 
 namespace Deatil\JWT;
 
-use Closure;
 use Deatil\JWT\Contracts\Key;
 use Deatil\JWT\Contracts\Signer;
 use Deatil\JWT\Contracts\PayloadToken;
 use Deatil\JWT\Encoding\JoseEncoder;
 use Deatil\JWT\Format\ChainedFormatter;
 use Deatil\JWT\Exception\InvalidTokenStructure;
-
-use function assert;
 
 final class Facade
 {

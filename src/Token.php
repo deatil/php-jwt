@@ -5,15 +5,10 @@ declare(strict_types=1);
 namespace Deatil\JWT;
 
 use DateTimeInterface;
-use Deatil\JWT\Contracts\Key;
-use Deatil\JWT\Contracts\Claim;
-use Deatil\JWT\Contracts\Signer;
 use Deatil\JWT\Contracts\DataSet;
 use Deatil\JWT\Contracts\Signature;
-use Deatil\JWT\Contracts\Validatable;
 use Deatil\JWT\Contracts\PayloadToken;
 use Deatil\JWT\Claim\RegisteredClaims;
-use Deatil\JWT\Claim\RegisteredHeaders;
 
 final class Token implements PayloadToken
 {

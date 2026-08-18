@@ -72,13 +72,13 @@ CKuHRG+AP579dncdUnOMvfXOtkdM4vk0+hWASBQzM9xzVcztCa+koAugjVaLS9A+
 -----END RSA PRIVATE KEY-----";
 
         $token = (new Builder())->identifiedBy('1')
-                         ->permittedFor('https://client.abc.com')
-                         ->permittedFor('https://client2.abc.com')
-                         ->issuedBy('https://api.abc.com')
-                         ->issuedAt($now)
-                         ->setClaim('user', $user)
-                         ->withHeader('jki', '1234')
-                         ->getToken($signer, InMemory::plainText($key));
+            ->permittedFor('https://client.abc.com')
+            ->permittedFor('https://client2.abc.com')
+            ->issuedBy('https://api.abc.com')
+            ->issuedAt($now)
+            ->setClaim('user', $user)
+            ->withHeader('jki', '1234')
+            ->getToken($signer, InMemory::plainText($key));
 
         self::assertSame('1234', $token->headers()->get('jki'));
         self::assertSame('https://api.abc.com', $token->claims()->get("iss"));

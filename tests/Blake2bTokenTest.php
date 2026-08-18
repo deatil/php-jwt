@@ -87,13 +87,13 @@ TUKzrgcd7NvlA41Y4xKcOqEA
         $key    = "0323354b2b0fa5bc837e0665777ba68f5ab328e6f054c928a90f84b2d2502ebfd3fb5a92d20647ef968ab4c377623d223d2e2172052e4f08c0cd9af567d080a3";
 
         $token = (new Builder())->identifiedBy('1')
-                         ->permittedFor('https://client.abc.com')
-                         ->permittedFor('https://client2.abc.com')
-                         ->issuedBy('https://api.abc.com')
-                         ->issuedAt($now)
-                         ->setClaim('user', $user)
-                         ->withHeader('jki', '1234')
-                         ->getToken($signer, InMemory::hexEncoded($key));
+            ->permittedFor('https://client.abc.com')
+            ->permittedFor('https://client2.abc.com')
+            ->issuedBy('https://api.abc.com')
+            ->issuedAt($now)
+            ->setClaim('user', $user)
+            ->withHeader('jki', '1234')
+            ->getToken($signer, InMemory::hexEncoded($key));
 
         self::assertSame('1234', $token->headers()->get('jki'));
         self::assertSame('https://api.abc.com', $token->claims()->get("iss"));

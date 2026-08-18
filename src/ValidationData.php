@@ -133,7 +133,7 @@ final class ValidationData implements BaseValidationData
      *
      * @param string $name
      *
-     * @return boolean
+     * @return bool
      */
     public function has(string $name): bool
     {

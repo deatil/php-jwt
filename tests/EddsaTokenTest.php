@@ -45,13 +45,13 @@ class EddsaTokenTest extends TestCase
         $key    = InMemory::base64Encoded('K3NWT0XqaH+4jgi42gQmHnFE+HTPVhFYi3u4DFJ3OpRHRMt/aGRBoKD/Pt5H/iYgGCla7Q04CdjOUpLSrjZhtg==');
 
         $token = (new Builder())->identifiedBy('1')
-                         ->permittedFor('https://client.abc.com')
-                         ->permittedFor('https://client2.abc.com')
-                         ->issuedBy('https://api.abc.com')
-                         ->issuedAt($now)
-                         ->setClaim('user', $user)
-                         ->withHeader('jki', '1234')
-                         ->getToken($signer, $key);
+            ->permittedFor('https://client.abc.com')
+            ->permittedFor('https://client2.abc.com')
+            ->issuedBy('https://api.abc.com')
+            ->issuedAt($now)
+            ->setClaim('user', $user)
+            ->withHeader('jki', '1234')
+            ->getToken($signer, $key);
 
         self::assertSame('1234', $token->headers()->get('jki'));
         self::assertSame('https://api.abc.com', $token->claims()->get("iss"));

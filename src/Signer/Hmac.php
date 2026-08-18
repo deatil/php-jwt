@@ -31,7 +31,7 @@ abstract class Hmac extends BaseSigner
      */
     public function verifySignature(string $expected, string $payload, Key $key): bool
     {
-        if (!is_string($expected)) {
+        if (! is_string($expected)) {
             return false;
         }
 
@@ -48,7 +48,7 @@ abstract class Hmac extends BaseSigner
      * @param string $expected
      * @param string $generated
      *
-     * @return boolean
+     * @return bool
      */
     public function hashEquals(string $expected, string $generated): bool
     {
@@ -60,7 +60,7 @@ abstract class Hmac extends BaseSigner
 
         $res = 0;
 
-        for ($i = 0; $i < $expectedLength; ++$i) {
+        for ($i = 0; $i < $expectedLength; $i++) {
             $res |= ord($expected[$i]) ^ ord($generated[$i]);
         }
 

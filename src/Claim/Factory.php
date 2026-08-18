@@ -36,7 +36,7 @@ class Factory
                 RegisteredClaims::ISSUER          => [$this, 'createEqualsTo'],
                 RegisteredClaims::AUDIENCE        => [$this, 'createEqualsTo'],
                 RegisteredClaims::SUBJECT         => [$this, 'createEqualsTo'],
-                RegisteredClaims::ID              => [$this, 'createEqualsTo']
+                RegisteredClaims::ID              => [$this, 'createEqualsTo'],
             ],
             $callbacks
         );

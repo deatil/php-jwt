@@ -14,7 +14,7 @@ interface Validatable
      *
      * @param ValidationData $data
      *
-     * @return boolean
+     * @return bool
      */
     public function validate(ValidationData $data): bool;
 }

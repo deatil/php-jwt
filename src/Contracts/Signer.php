@@ -44,7 +44,7 @@ interface Signer
      * @param string $payload
      * @param Key    $key
      *
-     * @return boolean
+     * @return bool
      *
      * @throws InvalidArgumentException When given key is invalid
      */

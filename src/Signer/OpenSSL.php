@@ -8,9 +8,6 @@ use Deatil\JWT\Signer;
 use Deatil\JWT\Contracts\Key;
 use Deatil\JWT\Exception\InvalidKeyProvided;
 
-use function assert;
-use function is_array;
-use function is_resource;
 use function openssl_error_string;
 use function openssl_pkey_get_details;
 use function openssl_pkey_get_private;
