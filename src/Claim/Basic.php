@@ -62,7 +62,7 @@ class Basic implements Claim
      *
      * @return string
      */
-    public function __toString()
+    public function __toString(): string
     {
         return $this->toString();
     }

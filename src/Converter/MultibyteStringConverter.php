@@ -8,8 +8,8 @@ use InvalidArgumentException;
 use Deatil\JWT\Contracts\SignatureConverter;
 
 use function bin2hex;
-use function dechex;
 use function hex2bin;
+use function dechex;
 use function hexdec;
 use function mb_strlen;
 use function mb_substr;

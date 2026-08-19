@@ -12,7 +12,7 @@ use function hash_equals;
 use function sodium_crypto_generichash;
 
 /**
- * BLAKE2B signers
+ * Blake2b signers
  */
 final class BLAKE2B extends BaseSigner
 {

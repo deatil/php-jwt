@@ -10,6 +10,8 @@ use Deatil\JWT\Contracts\Signature;
 use Deatil\JWT\Contracts\PayloadToken;
 use Deatil\JWT\Claim\RegisteredClaims;
 
+use function in_array;
+
 final class Token implements PayloadToken
 {
     private DataSet $headers;
@@ -99,7 +101,7 @@ final class Token implements PayloadToken
      *
      * @return string
      */
-    public function __toString()
+    public function __toString(): string
     {
         return $this->toString();
     }

@@ -7,7 +7,7 @@ namespace Deatil\JWT\Signer\Ecdsa;
 use Deatil\JWT\Signer\Ecdsa;
 
 /**
- * Signer for ECDSA P256K SHA-256
+ * Signer for ECDSA S256K SHA-256
  */
 final class ES256K extends Ecdsa
 {

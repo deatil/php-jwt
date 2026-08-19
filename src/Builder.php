@@ -16,6 +16,10 @@ use Deatil\JWT\Claim\RegisteredHeaders;
 use Deatil\JWT\Format\ChainedFormatter;
 use Deatil\JWT\Exception\RegisteredClaimGiven;
 
+use function in_array;
+use function array_diff;
+use function array_merge;
+
 /**
  * This class makes easier the token creation process
  */

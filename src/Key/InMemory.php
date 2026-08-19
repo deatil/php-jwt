@@ -10,6 +10,11 @@ use Deatil\JWT\Contracts\Key;
 use Deatil\JWT\Exception\CannotDecodeContent;
 use Deatil\JWT\Exception\FileCouldNotBeRead;
 
+use function assert;
+use function hex2bin;
+use function is_string;
+use function base64_decode;
+
 final class InMemory implements Key
 {
     private $contents;

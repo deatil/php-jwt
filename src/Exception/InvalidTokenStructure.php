@@ -33,7 +33,6 @@ final class InvalidTokenStructure extends InvalidArgumentException implements Ex
         return new self('The JWT token verify fail');
     }
 
-    /** @param non-empty-string $part */
     public static function arrayExpected(string $part): self
     {
         return new self($part . ' must be an array with non-empty-string keys');

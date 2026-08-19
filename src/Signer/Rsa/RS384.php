@@ -6,6 +6,8 @@ namespace Deatil\JWT\Signer\Rsa;
 
 use Deatil\JWT\Signer\Rsa;
 
+use const OPENSSL_ALGO_SHA384;
+
 /**
  * Signer for RSA SHA-384
  */

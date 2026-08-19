@@ -13,9 +13,12 @@ use Deatil\JWT\Claim\RegisteredClaims;
 use Deatil\JWT\Claim\RegisteredHeaders;
 use Deatil\JWT\Exception\InvalidTokenStructure;
 
+use function count;
 use function explode;
 use function in_array;
+use function is_array;
 use function is_numeric;
+use function number_format;
 use function array_key_exists;
 
 /**
