@@ -89,4 +89,23 @@ class ValidatorTest extends TestCase
 
         self::assertFalse($validation->validate($token, $data));
     }
+
+    public function testCheck5(): void
+    {
+        $data = "eyJ0eXAiOiJKV0UiLCJhbGciOiJFUzI1NiIsImtpZCI6ImtpZHMifQ.eyJpc3MiOiJpc3MiLCJpYXQiOjE1Njc4NDIzODgsImV4cCI6MTc2Nzg0MjM4OCwiYXVkIjoiZXhhbXBsZS5jb20iLCJzdWIiOiJzdWIiLCJqdGkiOiJqdGkgcnJyIiwibmJmIjoxNTY3ODQyMzg4fQ.dGVzdC1zaWduYXR1cmU";
+
+        $token = (new Parser())->parse($data);
+
+        $now = new DateTimeImmutable();
+
+        $data = new ValidationData($now->setTimestamp(1767842409));
+        $data->identifiedBy('jti rrr');
+        $data->issuedBy('iss');
+        $data->permittedFor('example.com');
+        $data->relatedTo('sub1');
+
+        $validation = new Validator();
+
+        self::assertFalse($validation->validate($token, $data));
+    }
 }
