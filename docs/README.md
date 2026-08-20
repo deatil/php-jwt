@@ -145,7 +145,7 @@ to use, or else your application will be vulnerable to a [critical JWT security 
 The examples below are safe because the choice in `Signer` is hard-coded and
 cannot be influenced by malicious users.
 
-### Hmac and BLAKE2B
+### Hmac and Blake2b
 
 Hmac signatures are really simple to be used:
 

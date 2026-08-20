@@ -1,0 +1,59 @@
+<?php
+
+declare(strict_types=1);
+
+namespace Deatil\JWT;
+
+use Generator;
+use Deatil\JWT\Contracts\Key;
+use Deatil\JWT\Contracts\Signer;
+use Deatil\JWT\Contracts\Validatable;
+use Deatil\JWT\Contracts\ValidationData;
+use Deatil\JWT\Contracts\PayloadToken;
+use Deatil\JWT\Claim\RegisteredHeaders;
+use Deatil\JWT\Claim\Factory as ClaimFactory;
+
+final class Validator
+{
+    private ClaimFactory $claimFactory;
+
+    public function __construct(
+        ?ClaimFactory $claimFactory = null,
+    ) {
+        $this->claimFactory = $claimFactory ?: new ClaimFactory();
+    }
+
+    public function verify(PayloadToken $token, Signer $signer, Key $key): bool
+    {
+        if ($token->headers()->get(RegisteredHeaders::ALGORITHM) !== $signer->getAlgorithmId()) {
+            return false;
+        }
+
+        $hash    = $token->signature()->hash();
+        $payload = $token->payload();
+
+        return $signer->verify($hash, $payload, $key);
+    }
+
+    public function validate(PayloadToken $token, ValidationData $data): bool
+    {
+        foreach ($this->getValidatableClaims($token) as $claim) {
+            if (! $claim->validate($data)) {
+                return false;
+            }
+        }
+
+        return true;
+    }
+
+    private function getValidatableClaims(PayloadToken $token): Generator
+    {
+        foreach ($token->claims()->all() as $name => $value) {
+            $claim = $this->claimFactory->create($name, $value);
+
+            if ($claim instanceof Validatable) {
+                yield $claim;
+            }
+        }
+    }
+}

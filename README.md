@@ -139,7 +139,7 @@ The JWT library have signers:
  - `HS384`: Deatil\JWT\Signer\Hmac\HS384
  - `HS512`: Deatil\JWT\Signer\Hmac\HS512
 
- - `BLAKE2B`: Deatil\JWT\Signer\BLAKE2B
+ - `BLAKE2B`: Deatil\JWT\Signer\Blake2b
 
  - `none`: Deatil\JWT\Signer\None
 

@@ -1,0 +1,20 @@
+<?php
+
+declare(strict_types=1);
+
+namespace Deatil\JWT\Contracts;
+
+/**
+ * Basic interface for validatable token claims
+ */
+interface Validatable
+{
+    /**
+     * Returns if claim is valid according with given data
+     *
+     * @param ValidationData $data
+     *
+     * @return bool
+     */
+    public function validate(ValidationData $data): bool;
+}
